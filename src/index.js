@@ -12,18 +12,18 @@ import Auth from "layouts/Auth.js";
 
 // views without layouts
 
-
+import ListOfStores from "views/customers/ListOfStores.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      {/* add routes with layouts */}
+      {/* add routes with Users */}
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
-
+      <Route path="/customers/ListOfStores" component={Index} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
