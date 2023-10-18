@@ -15,7 +15,7 @@ export default function Index() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+                "url('https://images.unsplash.com/photo-1604335398980-ededcadcc37d?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2070')",
             }}
           >
             <span
@@ -28,12 +28,10 @@ export default function Index() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                  Spend less time washing, more time chilling!
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    This is a simple example of a Landing Page you can build
-                    using Notus React. It features multiple CSS components based
-                    on the Tailwind CSS design system.
+                  Our laundry services offer expert care for your clothes, saving you time and reducing laundry-related stress. We provide regular and occasional cleaning and folding services, giving you extra free time to enjoy.
                   </p>
                 </div>
               </div>
@@ -115,18 +113,10 @@ export default function Index() {
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Working with us is a pleasure
+                  Working with Our Partner
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Don't let your uses guess by attaching tooltips and popoves to
-                  any element. Just make sure you enable them first via
-                  JavaScript.
-                </p>
-                <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  The kit comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
-                  good to go. Just make sure you enable them first via
-                  JavaScript.
+                Our partner offers a reliable and efficient laundry service that saves time and hassle. With state-of-the-art equipment and experienced staff, your clothes will be cleaned to perfection and returned to you promptly. Say goodbye to laundry and hello to more free time with our partner's laundry service.
                 </p>
                 <Link to="/" className="font-bold text-blueGray-700 mt-8">
                   Check Notus React!
@@ -137,10 +127,10 @@ export default function Index() {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                   <img
                     alt="..."
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
-                    className="w-full align-middle rounded-t-lg"
+                    src="https://images.unsplash.com/photo-1596902852634-9dc8f029bb1a?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=1887"
+                    className="max-w-full rounded-lg shadow-lg"
                   />
-                  <blockquote className="relative p-8 mb-4">
+                  {/*<blockquote className="relative p-8 mb-4">
                     <svg
                       preserveAspectRatio="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +150,7 @@ export default function Index() {
                       sea-ice then thaws every summer, and that process will
                       continue whatever happens.
                     </p>
-                  </blockquote>
+          </blockquote> */}
                 </div>
               </div>
             </div>
@@ -194,7 +184,7 @@ export default function Index() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
-                  src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  src="https://images.unsplash.com/photo-1469504512102-900f29606341?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=1825"
                 />
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
