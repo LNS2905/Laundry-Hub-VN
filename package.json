@@ -25,6 +25,9 @@
     "reactstrap": "^9.2.0",
     "tailwindcss": "2.0.4"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build --openssl-legacy-provider && gulp licenses",
