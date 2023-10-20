@@ -9,7 +9,7 @@ export default function CustomersCardTable({ color }) {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    axios.get('http://35.91.149.235:8080/spring-boot-aws-exe/api/v1/customer')
+    axios.get('http://35.89.17.249:8080/spring-boot-aws-exe/api/v1/customer')
       .then((response) => {
         setCustomers(response.data);
       })
@@ -36,7 +36,7 @@ export default function CustomersCardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Customers Card Tables
+                Customers 
               </h3>
             </div>
           </div>

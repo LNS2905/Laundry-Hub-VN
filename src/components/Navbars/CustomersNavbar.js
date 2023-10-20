@@ -1,6 +1,6 @@
 import React from "react";
 
-import AdminDropdown from "components/Dropdowns/AdminDropdown";
+import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Navbar() {
   return (
@@ -14,7 +14,7 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            Admin Dashboard
+            Customer Dashboard
           </a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
@@ -31,7 +31,7 @@ export default function Navbar() {
           </form>
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <AdminDropdown />
+            <UserDropdown />
           </ul>
         </div>
       </nav>

@@ -48,6 +48,14 @@ export default function Navbar(props) {
               <li className="flex items-center">
                 <Link
                   className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  to="/customers/orders"
+                >
+                  Customer Dashboard
+                </Link>
+              </li>
+              <li className="flex items-center">
+                <Link
+                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   to="/auth/login"
                 >
                   Login

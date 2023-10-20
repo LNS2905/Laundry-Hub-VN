@@ -9,12 +9,13 @@ import "assets/styles/tailwind.css";
 
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
-
+import Customers from "layouts/Customers.js";
 // views without layouts
 
 import ListOfStores from "views/customers/ListOfStores.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,6 +23,7 @@ ReactDOM.render(
       {/* add routes with Users */}
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
+      <Route path="/customers" component={Customers} />
       {/* add routes without layouts */}
       <Route path="/customers/ListOfStores" component={Index} />
       <Route path="/profile" exact component={Profile} />

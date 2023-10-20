@@ -1,7 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 
-const UserDropdown = () => {
+const AdminDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -50,7 +50,7 @@ const UserDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-        Notification
+        Another Action
         </a>
         <a
           href="#pablo"
@@ -67,4 +67,4 @@ const UserDropdown = () => {
   );
 };
 
-export default UserDropdown;
+export default AdminDropdown;
