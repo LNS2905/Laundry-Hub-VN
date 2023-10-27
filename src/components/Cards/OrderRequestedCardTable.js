@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import axios from 'axios';
 
 // components
 
-import TableDropdown from "components/Dropdowns/AdminTableDropdown.js";
+import TableDropdown from "components/Dropdowns/StoreTableDropdown.js";
 
-export default function StoresCardTable({ color }) {
+export default function OrderRequestedCardTable({ color }) {
+  const [orders, setOrders] = useState([
+    {
+      id: "123456",
+      customerName: "Nguyen Van A",
+      status: "Đang xử lý",
+      date: "2022-01-01T00:00:00Z"
+    },
+    {
+      id: "789012",
+      customerName: "Tran Thi B",
+      status: "Hoàn thành",
+      date: "2022-01-02T00:00:00Z"
+    }
+  ]);
+
   return (
     <>
       <div
@@ -23,13 +39,13 @@ export default function StoresCardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Stores 
+                Orders 
               </h3>
             </div>
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
-          {/* Stores table */}
+          {/* Orders table */}
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
@@ -41,7 +57,7 @@ export default function StoresCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Store ID
+                  Order ID
                 </th>
                 <th
                   className={
@@ -51,7 +67,7 @@ export default function StoresCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Name
+                  Customer Name
                 </th>
                 <th
                   className={
@@ -61,9 +77,8 @@ export default function StoresCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Status
+                  Order Status
                 </th>
-
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -72,53 +87,45 @@ export default function StoresCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Feedback
+                  Order Date
                 </th>
-                
-                
-                
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                ></th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <img
-                    src={require("assets/img/bootstrap.jpg").default}
-                    className="h-12 w-12 bg-white rounded-full border"
-                    alt="..."
-                  ></img>{" "}
-                  <span
-                    className={
-                      "ml-3 font-bold " +
-                      +(color === "light" ? "text-blueGray-600" : "text-white")
-                    }
-                  >
-                    1
-                  </span>
-                </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <span
-                className={
-                  "ml-3 font-bold " +
-                  +(color === "light" ? "text-blueGray-600" : "text-white")
-                }
-              >
-                Giặt ủi bằng nước mắt Store
-              </span>
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-green-500 mr-2"></i> active
-                </td>
-                
-                
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
-                  <TableDropdown />
-                </td>
-              </tr>
-                     
-                          
-                               
-               
+              {orders.map((order, index) => (
+                <tr key={index}>
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >
+                      {order.id}
+                    </span>
+                  </th>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {order.customerName}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {order.status}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {new Date(order.date).toLocaleDateString()}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                    <TableDropdown />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -127,10 +134,11 @@ export default function StoresCardTable({ color }) {
   );
 }
 
-StoresCardTable.defaultProps = {
+OrderRequestedCardTable.defaultProps = {
   color: "light",
 };
 
-StoresCardTable.propTypes = {
+OrderRequestedCardTable.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
+

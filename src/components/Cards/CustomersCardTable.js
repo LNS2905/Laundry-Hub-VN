@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import axios from 'axios';
 
 // components
-import TableDropdown from "components/Dropdowns/TableDropdown.js";
+import TableDropdown from "components/Dropdowns/AdminTableDropdown.js";
 
 export default function CustomersCardTable({ color }) {
   const [customers, setCustomers] = useState([]);
@@ -43,6 +43,7 @@ export default function CustomersCardTable({ color }) {
         </div>
         <div className="block w-full overflow-x-auto">
           {/* Customers table */}
+          
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>

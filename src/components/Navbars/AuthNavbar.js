@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 
-export default function Navbar(props) {
+export default function AuthNavbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>

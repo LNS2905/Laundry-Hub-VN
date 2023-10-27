@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown";
 
-export default function Navbar(props) {
+export default function ProductNavbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
-      <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
+      <nav className="top-0 sticky z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"style={{ backgroundColor: '#0284C7', position: 'sticky' }}>
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
@@ -43,22 +43,6 @@ export default function Navbar(props) {
                   to="/admin/dashboard"
                 >
                   Admin Dashboard
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/test"
-                >
-                  test
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/store/orderrequested"
-                >
-                  Store Dashboard
                 </Link>
               </li>
               <li className="flex items-center">

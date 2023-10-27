@@ -2,14 +2,15 @@ import React from "react";
 
 // components
 
-import Orders from "components/Cards/OrdersCard.js";
 
-export default function OrdersTable() {
+import CusOrderDetail from "components/Cards/OrderDetailCard.js";
+
+export default function OrdersDetailTable() {
   return (
     <>
       <div className="flex flex-wrap mt-4">F
         <div className="w-full mb-12 px-4">
-          <Orders color="dark" />
+          <CusOrderDetail color="dark" />
         </div>
       </div>
     </>

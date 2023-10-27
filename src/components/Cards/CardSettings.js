@@ -13,7 +13,7 @@ export default function CardSettings() {
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
             >
-              Settings
+              Update
             </button>
           </div>
         </div>
@@ -34,7 +34,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="lucky.jesse"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -49,7 +49,7 @@ export default function CardSettings() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="jesse@example.com"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -64,7 +64,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Lucky"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -79,7 +79,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Jesse"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function CardSettings() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="New York"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -132,7 +132,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Postal Code"
+                    defaultValue=""
                   />
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function CardSettings() {
                   <textarea
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
+                    defaultValue=""
                     rows="4"
                   ></textarea>
                 </div>

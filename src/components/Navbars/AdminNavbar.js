@@ -2,7 +2,7 @@ import React from "react";
 
 import AdminDropdown from "components/Dropdowns/AdminDropdown";
 
-export default function Navbar() {
+export default function AdminNavbar() {
   return (
     <>
       {/* Navbar */}

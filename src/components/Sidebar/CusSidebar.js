@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import UserDropdown from "components/Dropdowns/CustomerDropdown.js";
 
 export default function AdminSidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -84,16 +84,16 @@ export default function AdminSidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                    (window.location.href.indexOf("/customers/orders") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/dashboard"
+                  to="/customers/orders"
                 >
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                      (window.location.href.indexOf("/customers/orders") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -101,36 +101,36 @@ export default function AdminSidebar() {
                   Orders
                 </Link>
               </li>
-
+              
               <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                    (window.location.href.indexOf("/customers/cusorderdetails") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/dashboard"
+                  to="/customers/cusorderdetails"
                 >
                   <i
                     className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                      "fas fa-tv mr-2 text-sm " +
+                      (window.location.href.indexOf("/customers/cusorderdetails") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  List Of Stores
+                  Order Details
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/profile"
+                  to="/customers/cusprofile"
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Profile Page
+                  Profile
                 </Link>
               </li>            
             </ul>

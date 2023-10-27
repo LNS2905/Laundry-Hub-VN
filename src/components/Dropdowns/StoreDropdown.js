@@ -1,14 +1,14 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 
-const NotificationDropdown = () => {
+const UserDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "left-start",
+      placement: "bottom-start",
     });
     setDropdownPopoverShow(true);
   };
@@ -18,7 +18,7 @@ const NotificationDropdown = () => {
   return (
     <>
       <a
-        className="text-blueGray-500 py-1 px-3"
+        className="text-blueGray-500 block"
         href="#pablo"
         ref={btnDropdownRef}
         onClick={(e) => {
@@ -26,7 +26,15 @@ const NotificationDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        <i className="fas fa-ellipsis-v"></i>
+        <div className="items-center flex">
+          <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
+            <img
+              alt="..."
+              className="w-full rounded-full align-middle border-none shadow-lg"
+              src={require("assets/img/team-1-800x800.jpg").default}
+            />
+          </span>
+        </div>
       </a>
       <div
         ref={popoverDropdownRef}
@@ -42,7 +50,7 @@ const NotificationDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Action
+        Notification
         </a>
         <a
           href="#pablo"
@@ -51,20 +59,12 @@ const NotificationDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Another action
+          Logout
         </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Something else here
-        </a>
+        
       </div>
     </>
   );
 };
 
-export default NotificationDropdown;
+export default UserDropdown;

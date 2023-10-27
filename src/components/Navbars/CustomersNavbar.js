@@ -1,8 +1,8 @@
 import React from "react";
 
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import UserDropdown from "components/Dropdowns/CustomerDropdown.js";
 
-export default function Navbar() {
+export default function CusNavbar() {
   return (
     <>
       {/* Navbar */}
@@ -14,7 +14,7 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            Customer Dashboard
+            Customer
           </a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
