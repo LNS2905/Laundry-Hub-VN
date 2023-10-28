@@ -112,6 +112,10 @@ export default function Register() {
                         required: true,
                         message: "Please input your password!",
                       },
+                      {
+                        min: 8,
+                        message: "Please input greather than 8 characters!",
+                      }
                     ]}
                   >
                     <Input type="password" />

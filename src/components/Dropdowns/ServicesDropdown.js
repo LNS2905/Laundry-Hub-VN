@@ -1,16 +1,14 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 
-const AdminDropdown = () => {
-  const navigate = useHistory();
+const NotificationDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "bottom-start",
+      placement: "left-start",
     });
     setDropdownPopoverShow(true);
   };
@@ -20,7 +18,7 @@ const AdminDropdown = () => {
   return (
     <>
       <a
-        className="text-blueGray-500 block"
+        className="text-blueGray-500 py-1 px-3"
         href="#pablo"
         ref={btnDropdownRef}
         onClick={(e) => {
@@ -28,15 +26,7 @@ const AdminDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        <div className="items-center flex">
-          <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-            <img
-              alt="..."
-              className="w-full rounded-full align-middle border-none shadow-lg"
-              src={require("assets/img/team-1-800x800.jpg").default}
-            />
-          </span>
-        </div>
+        <i className="fas fa-ellipsis-v"></i>
       </a>
       <div
         ref={popoverDropdownRef}
@@ -45,19 +35,28 @@ const AdminDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <button
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("role");
-            navigate.push("/");
-          }}
+        <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={(e) => e.preventDefault()}
         >
-          Logout
-        </button>
+          Update
+        </a>
+        <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={(e) => e.preventDefault()}
+        >
+          Delete
+        </a>
+        
       </div>
     </>
   );
 };
 
-export default AdminDropdown;
+export default NotificationDropdown;

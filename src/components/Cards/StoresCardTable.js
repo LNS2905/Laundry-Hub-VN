@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // components
 
-import TableDropdown from "components/Dropdowns/AdminTableDropdown.js";
+import TableDropdown from "components/Dropdowns/StoreTableDropdown.js";
 
 export default function StoresCardTable({ color }) {
   return (
@@ -73,8 +73,7 @@ export default function StoresCardTable({ color }) {
                   }
                 >
                   Feedback
-                </th>
-                
+                </th>               
                 
                 
               </tr>

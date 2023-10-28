@@ -7,18 +7,14 @@ import CustomersNavbar from "components/Navbars/CustomersNavbar.js";
 import CusSidebar from "components/Sidebar/CusSidebar.js";
 import CusHeader from "components/Headers/CusHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
-import CusOrderDetail from "components/Cards/OrderDetailCard.js";
 
 
 // views
 
-
-
-
-
-
+import CusOrderDetail from "components/Cards/OrderDetailCard.js";
 import CusOrders from "views/customers/Orders.js";
 import CusProfile from "views/customers/CusProfile.js";
+
 
 
 export default function Customers() {

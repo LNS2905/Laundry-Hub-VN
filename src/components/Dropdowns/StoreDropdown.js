@@ -1,8 +1,10 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const UserDropdown = () => {
   // dropdown props
+  const navigate = useHistory();
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -43,25 +45,24 @@ const UserDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <a
-          href="#pablo"
+        <Link
+          to="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
         >
-        Notification
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
+          Notification
+        </Link>
+        <button
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            navigate.push("/");
+          }}
         >
           Logout
-        </a>
-        
+        </button>
       </div>
     </>
   );

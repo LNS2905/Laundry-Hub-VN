@@ -20,6 +20,7 @@ import Index from "views/Index.js";
 import StoreView from "views/StoreView.js";
 import test from "views/test.js";
 import { ToastContainer } from "react-toastify";
+import ProtectedRoute from "components/RouteAuthorized/ProtectedRoute";
 
 
 
@@ -28,10 +29,10 @@ ReactDOM.render(
   <ToastContainer />
     <Switch>
       {/* add routes with Users */}
-      <Route path="/admin" component={Admin} />
+      <ProtectedRoute path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
-      <Route path="/customers" component={Customers} />
-      <Route path="/store" component={Store} />
+      <ProtectedRoute path="/customers" component={Customers} />
+      <ProtectedRoute path="/store" component={Store} />
       
 
       {/* add routes without layouts */}

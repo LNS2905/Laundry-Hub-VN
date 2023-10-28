@@ -1,12 +1,49 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { Avatar, List, Space, Steps } from 'antd';
+import { Avatar, Button, List, Modal, Radio, Space, Steps } from 'antd';
 import ProductNavbar from "components/Navbars/ProductNavbar.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
+import api from "config/axios";
 
 
 export default function Index() {
+
+  const [store, setStore] = useState([]);
+  const [currentStoreId, setCurrentStoreId] = useState(0);
+  const [services, setServices] = useState([]);
+  const [currentStore, setCurrentStore] = useState(null);
+
+  const fetch = async () => {
+    const stores = await api.get(`/api/v1/store`);
+    console.log(stores.data.data);
+    setStore(stores.data.data);
+  }
+
+  const handleOk = () => {
+    // setShow(false);
+  };
+
+  const handleCancel = () => {
+    setCurrentStoreId(null);
+    setCurrentStore(null);
+    
+  };
+
+  useEffect(()=>{
+    fetch();
+  }, [])
+
+  const fetchService = async () => {
+    const services = await api.get(`/api/v1/service/${currentStoreId}`);
+    setServices(services.data.data);
+  }
+
+  useEffect(()=>{
+    if(currentStoreId){
+      fetchService();
+    }
+  }, [currentStoreId])
 
     const data = Array.from({
         length: 23,
@@ -41,13 +78,16 @@ export default function Index() {
               },
               pageSize: 10,
             }}
-            dataSource={data}
+            dataSource={store}
             
             renderItem={(item) => (
                 <List.Item
-                  key={item.title}
+                  key={item.name}
                   actions={[
-                    <IconText text="/5" icon={StarOutlined} key="list-vertical-star-o" />
+                    <Button type="primary" onClick={()=>{
+                      setCurrentStoreId(item.id)
+                      setCurrentStore(item)
+                    }}>Create Order</Button>
                   ]}
                   extra={
                     <img
@@ -59,16 +99,29 @@ export default function Index() {
                 >
                   <List.Item.Meta
                     avatar={<Avatar src={item.avatar} />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.description}
+                    title={<a href={item.href}>{item.name}</a>}
+                    description={item.address}
                   />
-                  {item.content}
                 </List.Item>
               )}
             />
 
             </main>
             <FooterAdmin   />
+            <Modal title={currentStore?.name+ ' - ' + currentStore?.address} open={currentStoreId} onOk={handleOk} onCancel={handleCancel}>
+              {
+                services.map((item) => {
+                  return <div style={{margin: '10px 0'}}>
+                    <h1>{item.name}</h1>
+                    <Radio.Group>
+                    {item.options.map((option)=>{
+                      return <Radio value={option.id}>{option.name}</Radio>
+                    })}
+                    </Radio.Group>
+                  </div>
+                })
+              }
+            </Modal>
         </>
     );
 }

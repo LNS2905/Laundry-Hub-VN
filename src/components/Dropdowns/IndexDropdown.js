@@ -27,7 +27,11 @@ const IndexDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        More
+        <img
+          src={require("assets/img/react.jpg").default}
+          alt="..."
+          className="w-10 h-10 rounded-full border-2 border-gray-300 shadow"
+        />
       </a>
       <div
         ref={popoverDropdownRef}
@@ -36,8 +40,6 @@ const IndexDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        
-        
         <Link
           to="/auth/login"
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
@@ -56,8 +58,6 @@ const IndexDropdown = () => {
         >
           List of Stores
         </Link>
-        
-        
       </div>
     </>
   );

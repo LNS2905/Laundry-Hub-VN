@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Descriptions } from "antd";
+import { Badge, Button, Descriptions } from "antd";
 import ProgressBar from "./ProgressBar.js";
 
 const items = [
@@ -55,7 +55,7 @@ const items = [
     label: "Config Info",
     children: (
       <>
-        Data disk type: MongoDB
+        Services: MongoDB
         <br />
         Database version: 3.4
         <br />
@@ -79,7 +79,8 @@ const App = ({ color = "light" }) => {
         (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
       }
     >
-      <Descriptions title="Order Detail" bordered items={items} />
+      <Descriptions className="px-6 py-6" title="Order Detail" bordered items={items} />
+      
     </div>
   );
 };

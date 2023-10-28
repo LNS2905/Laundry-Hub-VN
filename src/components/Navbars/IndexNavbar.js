@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 // components
 
-
 import IndexDropdown from "components/Dropdowns/IndexDropdown";
 
 export default function Navbar(props) {
@@ -35,7 +34,6 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <Link
@@ -88,7 +86,6 @@ export default function Navbar(props) {
               <li className="flex items-center">
                 <IndexDropdown />
               </li>
-
             </ul>
           </div>
         </div>

@@ -2,18 +2,18 @@ import React from "react";
 
 // components
 
-import CardSettings from "components/Cards/CardSettings.js";
-import CardProfile from "components/Cards/CardProfile.js";
+import CusSetting from "components/Cards/CusSetting.js";
+import CusProfile from "components/Cards/CusProfile.js";
 
 export default function Settings() {
   return (
     <>
       <div className="flex flex-wrap">
         <div className="w-full lg:w-8/12 px-4">
-          <CardSettings />
+          <CusSetting />
         </div>
         <div className="w-full lg:w-4/12 px-4">
-          <CardProfile />
+          <CusProfile />
         </div>
       </div>
     </>

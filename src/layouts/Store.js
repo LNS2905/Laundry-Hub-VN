@@ -1,14 +1,13 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import { Link } from "react-router-dom";
-import Footer from "components/Footers/Footer.js";
+
 // components
 
-import CustomersNavbar from "components/Navbars/CustomersNavbar.js";
+import StoreNavbar from "components/Navbars/StoreNavbar.js";
 import StoreSidebar from "components/Sidebar/StoreSidebar.js";
 import CusHeader from "components/Headers/CusHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
+import StoreProfile from "views/store/StoreProfile.js";
 
 
 // views
@@ -19,19 +18,21 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
 import OrderRequested from "views/store/OrderRequested.js";
+import ServicesPage from "components/Cards/Services";
 
 export default function Store() {
   return (
     <>
       <StoreSidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
-        <CustomersNavbar />
+        <StoreNavbar />
         {/* Header */}
         <CusHeader />
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <Switch>                                
-            <Route path="/store/orderrequested" exact component={OrderRequested} />
-   
+          <Route path="/store/orderrequested" exact component={OrderRequested} />
+          <Route path="/store/services" exact component={ServicesPage} />
+          <Route path="/store/storeprofile" exact component={StoreProfile} />
             <Redirect from="/store" to="/store/orderrequested" />
           </Switch>
           <FooterAdmin />

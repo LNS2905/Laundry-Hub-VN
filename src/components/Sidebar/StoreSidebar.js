@@ -84,16 +84,16 @@ export default function AdminSidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/customers/orders") !== -1
+                    (window.location.href.indexOf("/store/orderrequested") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/customers/orders"
+                  to="/store/orderrequested"
                 >
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/customers/orders") !== -1
+                      (window.location.href.indexOf("/store/orderrequested") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -102,6 +102,8 @@ export default function AdminSidebar() {
                 </Link>
               </li>
               
+                    
+
               <li className="items-center">
                 <Link
                   className={
@@ -110,7 +112,8 @@ export default function AdminSidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="./components/cards/orderdetail"
+                  
+                  to="/store/services"
                 >
                   <i
                     className={
@@ -120,14 +123,14 @@ export default function AdminSidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Order Details
+                  Services
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/customers/cusprofile"
+                  to="/store/storeprofile"
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
                   Profile
