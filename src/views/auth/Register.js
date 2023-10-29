@@ -92,6 +92,27 @@ export default function Register() {
                   autoComplete="off"
                 >
                   <Form.Item
+                    name="role"
+                    label="Role"
+                    initialValue="CUSTOMER"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Select a option and change input text above"
+                      value={role}
+                      onChange={(e) => {
+                        setRole(e);
+                      }}
+                    >
+                      <Option value="CUSTOMER">Customer</Option>
+                      <Option value="STORE">Store</Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
                     label="Username"
                     name="username"
                     rules={[
@@ -227,27 +248,7 @@ export default function Register() {
                     </>
                   )}
 
-                  <Form.Item
-                    name="role"
-                    label="Role"
-                    initialValue="CUSTOMER"
-                    rules={[
-                      {
-                        required: true,
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Select a option and change input text above"
-                      value={role}
-                      onChange={(e) => {
-                        setRole(e);
-                      }}
-                    >
-                      <Option value="CUSTOMER">Customer</Option>
-                      <Option value="STORE">Store</Option>
-                    </Select>
-                  </Form.Item>
+
 
                   <Form.Item
                     wrapperCol={{

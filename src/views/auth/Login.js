@@ -16,6 +16,7 @@ export default function Login() {
       const res = await api.post("/login", values);
       const role = res.data.data.role;
       localStorage.setItem("role", role);
+      localStorage.setItem("account", JSON.stringify(res.data.data));
       console.log(res.data.data.token);
       localStorage.setItem("token", res.data.data.token);
       if (role === "CUSTOMER") {

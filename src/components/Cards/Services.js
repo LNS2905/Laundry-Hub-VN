@@ -10,37 +10,34 @@ import { Button, Tag, Modal } from "antd";
 import CreateService from "./CreateService";
 
 export default function ServicesPage({ color }) {
-  const [services, setServices] = useState([
-
-  ]);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const [render, setRender] = useState(0);
 
   const fetchData = async () => {
-    const res = await api.get("http://143.198.196.146:8080/api/v1/service/1")
+    const res = await api.get("http://143.198.196.146:8080/api/v1/service")
     console.log(res.data.data);
     const data = res.data.data;
     setServices(data);
   }
 
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOpen(false);
-    }, 3000);
+    setSubmit(true);
   };
   const handleCancel = () => {
     setOpen(false);
+    setSubmit(false);
   };
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, [render])
 
   return (
     <>
@@ -77,7 +74,7 @@ export default function ServicesPage({ color }) {
                     
                   ]}
                 >
-                  <CreateService />
+                  <CreateService submit={submit} setSubmit={setSubmit} handleCancel={handleCancel} render={render} setRender={setRender}/>
                 </Modal>
               </>
               </h3>
@@ -151,7 +148,7 @@ export default function ServicesPage({ color }) {
             <tbody>
               {services.map((service, index) => (
                 <tr key={index}>
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                     <span
                       className={
                         "ml-3 font-bold " +
@@ -168,7 +165,9 @@ export default function ServicesPage({ color }) {
                     {service.description}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {service.figure}
+                    <img src={service.figure} width={100} style={{
+                      borderRadius: 10
+                    }}/>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {service.options.map((option, index) => {
