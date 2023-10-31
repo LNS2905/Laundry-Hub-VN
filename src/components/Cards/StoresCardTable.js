@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // components
-
+import api from "config/axios";
 import TableDropdown from "components/Dropdowns/StoreTableDropdown.js";
 
+
 export default function StoresCardTable({ color }) {
+  const [stores, setStores] = useState([]);   
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("api/v1/store");
+        setStores(response.data.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
       <div
@@ -72,52 +88,71 @@ export default function StoresCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Feedback
-                </th>               
+                  Phone Number
+                </th>             
+                 
                 
-                
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                >
+                  Rate
+                </th>     
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                  (color === "light"
+                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                }>
+                </th>                       
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <img
-                    src={require("assets/img/bootstrap.jpg").default}
-                    className="h-12 w-12 bg-white rounded-full border"
-                    alt="..."
-                  ></img>{" "}
+              {stores.map((store, index) => (
+                <tr key={index}>
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                    <img
+                      src={store.coverPhoto}
+                      className="h-12 w-12 bg-white rounded-full border"
+                      alt="..."
+                    ></img>{" "}
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >
+                      {store.id}
+                    </span>
+                  </th>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <span
-                    className={
-                      "ml-3 font-bold " +
-                      +(color === "light" ? "text-blueGray-600" : "text-white")
-                    }
-                  >
-                    1
-                  </span>
-                </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <span
-                className={
-                  "ml-3 font-bold " +
-                  +(color === "light" ? "text-blueGray-600" : "text-white")
-                }
-              >
-                Giặt ủi bằng nước mắt Store
-              </span>
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-green-500 mr-2"></i> active
-                </td>
-                
-                
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
-                  <TableDropdown />
-                </td>
-              </tr>
-                     
-                          
-                               
-               
+                  className={
+                    "ml-3 font-bold " +
+                    +(color === "light" ? "text-blueGray-600" : "text-white")
+                  }
+                >
+                  {store.name}
+                </span>
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className={`fas fa-circle text-${store.status === 'ACTIVE' ? 'green' : 'red'}-500 mr-2`}></i> {store.status.toLowerCase()}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {store.phoneNumber}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {store.rate} <i className="fas fa-star text-yellow-500"></i>
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
+                    <TableDropdown />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -133,3 +168,4 @@ StoresCardTable.defaultProps = {
 StoresCardTable.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
+

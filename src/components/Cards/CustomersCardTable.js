@@ -7,7 +7,7 @@ import TableDropdown from "components/Dropdowns/AdminTableDropdown.js";
 import api from "config/axios";
 
 export default function CustomersCardTable({ color }) {
-  const [customers, setCustomers] = useState([]);   
+  const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,24 +40,23 @@ export default function CustomersCardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Customers 
+                Customers
               </h3>
             </div>
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
           {/* Customers table */}
-          
+
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                  (color === "light"
+                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                }
                 >
                   Customer ID
                 </th>
@@ -91,25 +90,60 @@ export default function CustomersCardTable({ color }) {
                 >
                   Address
                 </th>
+
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                  (color === "light"
+                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                }></th>
               </tr>
             </thead>
             <tbody>
               {customers.map((customer) => (
                 <tr key={customer.id}>
-                  <td>{customer.id}</td>
-                  <td>{customer.name}</td>
-                  <td>{customer.phoneNumber}</td>
-                  <td>{customer.avatar}</td>
-                  <td>{customer.address}</td>                  
-                  <td>
-                    <TableDropdown />
-                  </td>
-                </tr>
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                    <img
+                      src={customer.coverPhoto}
+                      className="h-12 w-12 bg-white rounded-full border"
+                      alt="..."
+                    ></img>{" "}
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >
+                      {customer.id}
+                    </span>
+                  </th>
+                  
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"><span
+              className={
+                "ml-3 font-bold " +
+                +(color === "light" ? "text-blueGray-600" : "text-white")
+              }
+            >
+              {customer.phoneNumber}
+            </span></td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"><span
+              className={
+                "ml-3 font-bold " +
+                +(color === "light" ? "text-blueGray-600" : "text-white")
+              }
+            >
+              {customer.address}
+            </span></td>
+
+            <td border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right>
+              <TableDropdown />
+            </td>
+          </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+        </tbody>
+      </table>
+    </div >
+      </div >
     </>
   );
 }
