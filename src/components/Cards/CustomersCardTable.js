@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import axios from 'axios';
+
 
 // components
 import TableDropdown from "components/Dropdowns/AdminTableDropdown.js";
+import api from "config/axios";
 
 export default function CustomersCardTable({ color }) {
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState([]);   
 
   useEffect(() => {
-    axios.get('http://35.89.17.249:8080/spring-boot-aws-exe/api/v1/customer')
-      .then((response) => {
-        setCustomers(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const fetchData = async () => {
+      try {
+        const response = await api.get("api/v1/customer/admin-function/all-customer");
+        setCustomers(response.data.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    fetchData();
   }, []);
 
   return (
@@ -77,17 +81,26 @@ export default function CustomersCardTable({ color }) {
                 >
                   Phone
                 </th>
-                
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                >
+                  Address
+                </th>
               </tr>
             </thead>
             <tbody>
               {customers.map((customer) => (
-                <tr key={customer.customerID}>
-                  <td>{customer.customerID}</td>
-                  <td>{customer.customerName}</td>
+                <tr key={customer.id}>
+                  <td>{customer.id}</td>
+                  <td>{customer.name}</td>
                   <td>{customer.phoneNumber}</td>
-                  
-                  
+                  <td>{customer.avatar}</td>
+                  <td>{customer.address}</td>                  
                   <td>
                     <TableDropdown />
                   </td>

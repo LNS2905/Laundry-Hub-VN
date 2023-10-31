@@ -5,22 +5,23 @@ import axios from 'axios';
 // components
 
 import TableDropdown from "components/Dropdowns/CustomerTableDropdown.js";
+import api from "config/axios";
 
 export default function OrdersCardTable({ color }) {
-  const [orders, setOrders] = useState([
-    {
-      id: "123456",
-      customerName: "Nguyen Van A",
-      status: "Đang xử lý",
-      date: "2022-01-01T00:00:00Z"
-    },
-    {
-      id: "789012",
-      customerName: "Tran Thi B",
-      status: "Hoàn thành",
-      date: "2022-01-02T00:00:00Z"
-    }
-  ]);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("api/v1/order/all-order-in-store/id");
+        setOrders(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -141,4 +142,6 @@ OrdersCardTable.defaultProps = {
 OrdersCardTable.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
+
+
 

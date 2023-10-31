@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
+
 import { Link } from "react-router-dom";
 import Footer from "components/Footers/Footer.js";
 // components

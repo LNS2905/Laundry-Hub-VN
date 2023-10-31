@@ -30,6 +30,7 @@ export default function Index() {
                   <h1 className="text-white font-semibold text-5xl">
                     Spend less time washing, more time chilling!
                   </h1>
+                  
                   <p className="mt-4 text-lg text-blueGray-200">
                     Our laundry services offer expert care for your clothes, saving you time and reducing laundry-related stress. We provide regular and occasional cleaning and folding services, giving you extra free time to enjoy.
                   </p>

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import axios from 'axios';
+
 
 // components
 
 import TableDropdown from "components/Dropdowns/StoreTableDropdown.js";
+import api from "config/axios";
 
 export default function OrderRequestedCardTable({ color }) {
-  const [orders, setOrders] = useState([
-    {
-      id: "123456",
-      customerName: "Nguyen Van A",
-      status: "Đang xử lý",
-      date: "2022-01-01T00:00:00Z"
-    },
-    {
-      id: "789012",
-      customerName: "Tran Thi B",
-      status: "Hoàn thành",
-      date: "2022-01-02T00:00:00Z"
-    }
-  ]);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("api/v1/order/all-order-in-store/id");
+        setOrders(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -100,8 +102,8 @@ export default function OrderRequestedCardTable({ color }) {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
-                <tr key={index}>
+              {orders.map((id) => (
+                <tr key={id}>
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                     <span
                       className={
@@ -109,17 +111,17 @@ export default function OrderRequestedCardTable({ color }) {
                         +(color === "light" ? "text-blueGray-600" : "text-white")
                       }
                     >
-                      {order.id}
+                      {orders.id}
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {order.customerName}
+                    {orders.customerName}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {order.status}
+                    {orders.status}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {new Date(order.date).toLocaleDateString()}
+                    {new Date(orders.date).toLocaleDateString()}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                     <TableDropdown />

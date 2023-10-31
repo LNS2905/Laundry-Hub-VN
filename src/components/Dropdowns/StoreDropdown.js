@@ -31,9 +31,9 @@ const UserDropdown = () => {
         <div className="items-center flex">
           <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
             <img
-              alt="..."
+              alt="store"
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={require("assets/img/team-1-800x800.jpg").default}
+              src={'https://images.unsplash.com/profile-fb-1687415375-5592bc38a9e7.jpg?auto=format&fit=crop&q=60&bg=fff&crop=faces&dpr=1&h=32&w=32'}
             />
           </span>
         </div>
@@ -46,12 +46,20 @@ const UserDropdown = () => {
         }
       >
         <Link
-          to="#pablo"
+          to="/store/storeprofile"
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-center"
           }
         >
-          Notification
+          Profile
+        </Link>
+        <Link
+          to="/store/services"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-center"
+          }
+        >
+          Services
         </Link>
         <button
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"

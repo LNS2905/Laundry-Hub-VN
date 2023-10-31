@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 // components
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown";
+import IndexNavbarBody from "components/Navbars/IndexNavbarBody";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
@@ -35,54 +38,10 @@ export default function Navbar(props) {
             id="example-navbar-warning"
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/admin/dashboard"
-                >
-                  Admin Dashboard
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/test"
-                >
-                  test
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/store/orderrequested"
-                >
-                  Store Dashboard
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/productpage"
-                >
-                  Product Page
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/customers/orders"
-                >
-                  Customer Dashboard
-                </Link>
-              </li>
-              <li className="flex items-center">
-                <Link
-                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  to="/auth/login"
-                >
-                  Login
-                </Link>
-              </li>
+
+
+              <IndexNavbarBody />
+
               <li className="flex items-center">
                 <IndexDropdown />
               </li>

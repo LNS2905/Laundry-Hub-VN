@@ -1,10 +1,14 @@
 /*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { Avatar, Button, Form, Input, List, Modal, Radio, Space, Steps } from 'antd';
+import { Avatar, Button, Form, Input, List, Modal, Radio, Space, Steps, Card, Row, Col, Rate } from 'antd';
+const { Meta } = Card;
 import ProductNavbar from "components/Navbars/ProductNavbar.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 import api from "config/axios";
+import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
+import { formatVND } from "utils/currencyUtils";
+import { toast } from "react-toastify";
 
 
 export default function Index() {
@@ -14,6 +18,31 @@ export default function Index() {
   const [services, setServices] = useState([]);
   const [currentStore, setCurrentStore] = useState(null);
   const [form] = Form.useForm();
+  const [key, setKey] = useState('');
+
+
+
+  const onFinish = async (values) => {
+    console.log("Success:", values);
+    console.log(values.address);
+    // try {
+    //   const res = await api.post("/api/v1/order", values);
+    //   localStorage.setItem("order", JSON.stringify(res.data.data));
+    //   console.log(res.data.data.token);   
+    // } catch (e) {
+    //   // console.log(e.response);
+    //   toast.error(e.response.data);
+    // }
+  };
+
+
+  const customIcons = {
+    1: <FrownOutlined />,
+    2: <FrownOutlined />,
+    3: <MehOutlined />,
+    4: <SmileOutlined />,
+    5: <SmileOutlined />,
+  };
 
   const account = JSON.parse(localStorage.getItem('account'));
   console.log(account);
@@ -35,9 +64,7 @@ export default function Index() {
 
   };
 
-  useEffect(() => {
-    fetch();
-  }, [])
+  useEffect(fetch, [])
 
   const fetchService = async () => {
     const services = await api.get(`/api/v1/service/${currentStoreId}`);
@@ -68,55 +95,54 @@ export default function Index() {
     </Space>
   );
 
+  const mapToHtml = (store) => {
+    console.log(store);
+    return <Col span={6}>
+      <Card
+        hoverable
+
+        actions={[
+          account.role === 'CUSTOMER' ? (
+            <Button type="primary" onClick={() => {
+              setCurrentStoreId(store.id)
+              setCurrentStore(store)
+            }}>Create Order</Button>
+          ) : null
+        ]}
+
+        cover={<img onError={(e) => {
+          e.target.src = 'https://i.ytimg.com/vi/fR73eqKHmu4/maxresdefault.jpg'
+        }} alt="example" src={store.coverPhoto ? store.coverPhoto : 'https://i.ytimg.com/vi/fR73eqKHmu4/maxresdefault.jpg'} />}
+      >
+        <Meta title={store.name} description={store.address} />
+        <Meta description={store.description + ' - ' + store.phoneNumber} />
+        <Rate style={{ marginTop: 20 }} disabled defaultValue={store.rate} character={({ index }) => customIcons[index + 1]} />
+
+
+
+      </Card>
+    </Col>
+
+  }
+  const onInput = (i) => { setKey(i.target.value); }
   return (
     <>
       <ProductNavbar transparent color="blue" />
       <main >
-
-        <List
-
-          itemLayout="vertical"
-          size="large"
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
-            pageSize: 10,
-          }}
-          dataSource={store}
-
-          renderItem={(item) => (
-            <List.Item
-              key={item.name}
-              actions={[
-                <Button type="primary" onClick={() => {
-                  setCurrentStoreId(item.id)
-                  setCurrentStore(item)
-                }}>Create Order</Button>
-              ]}
-              extra={
-                <img
-                  width={272}
-                  alt="logo"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                />
-              }
-            >
-              <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={<a href={item.href}>{item.name}</a>}
-                description={item.address}
-              />
-            </List.Item>
-          )}
-        />
-
+        <Input onInput={onInput}
+          placeholder="Type to search"
+          style={{ width: '50%', margin: '20px auto', display: 'block' }} />
+        <Row gutter={12} style={{ padding: 30 }}>
+          {store.filter(item => item.name.toLowerCase().includes(key.toLowerCase())).map(mapToHtml)}
+        </Row>
       </main>
       <FooterAdmin />
-      <Modal title={currentStore?.name + ' - ' + currentStore?.address} open={currentStoreId} onOk={handleOk} onCancel={handleCancel}>
-        <Form form={form}>
 
-          <Form.Item initialValue={account.customer.address} name='address' label="Address" labelCol={{
+
+      <Modal title={currentStore?.name + ' - ' + currentStore?.address} open={currentStoreId} onOk={handleOk} onCancel={handleCancel}>
+        <Form form={form} onFinish={onFinish}>
+
+          <Form.Item initialValue={account?.customer?.address} name='address' label="Address" labelCol={{
             span: 24,
           }}
             rules={[
@@ -128,7 +154,7 @@ export default function Index() {
             <Input />
           </Form.Item>
 
-          <Form.Item initialValue={account.customer.phoneNumber} name='phone' label="Phone" labelCol={{
+          <Form.Item initialValue={account?.customer?.phoneNumber} name='phone' label="Phone" labelCol={{
             span: 24,
           }}
             rules={[
@@ -145,16 +171,22 @@ export default function Index() {
               {
                 services.map(item => {
                   if (item.title === 'WASH') {
-                    return <Radio value={item.id}>{item.name}</Radio>
+                    return <Form.Item initialValue={item.filter(item => item.defaultValue)[0]
+                      ? item.filter(item => item.defaultValue)[0]?.id
+                      : item[0]?.id}
+                      name={item.id} label={item.name} labelCol={{ span: 24 }}>
+                      {item.name}
+                      </Form.Item>
                   }
                 })
               }
-            </Radio.Group></Form.Item>
+            </Radio.Group>
+          </Form.Item>
 
           {
             services.map(item => {
               if (item.title === 'OPTION') {
-                return <Form.Item initialValue={item.options.filter(item => item.defaultValue)[0]
+                return <Form.Item initialValue={item.options.filter(item => item.defaultValue == true)[0]
                   ? item.options.filter(item => item.defaultValue)[0]?.id
                   : item.options[0]?.id}
                   name={item.id} label={item.name} labelCol={{ span: 24 }}>
@@ -169,20 +201,9 @@ export default function Index() {
             })
           }
 
+
         </Form>
 
-        {/*{
-                services.map((item) => {
-                  return <div style={{margin: '10px 0'}}>
-                    <h1>{item.name}</h1>
-                    <Radio.Group>
-                    {item.options.map((option)=>{
-                      return <Radio value={option.id}>{option.name}</Radio>
-                    })}
-                    </Radio.Group>
-                  </div>
-                })
-              }*/}
       </Modal>
     </>
   );

@@ -35,12 +35,14 @@ export default function Register() {
       toast.success("Sign up successfully!");
       navigate.push("/auth/login");
     } catch (e) {
-      toast.error(e.message);
+      
+      toast.error(e.response.data);
     }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
     toast.error("Sign up failed!");
+
   };
 
   return (

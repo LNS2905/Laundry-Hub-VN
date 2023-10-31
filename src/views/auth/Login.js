@@ -20,9 +20,9 @@ export default function Login() {
       console.log(res.data.data.token);
       localStorage.setItem("token", res.data.data.token);
       if (role === "CUSTOMER") {
-        navigate.push("/customers/orders");
+        navigate.push("/productpage");
       } else if (role === "STORE") {
-        navigate.push("/stores/orderrequests");
+        navigate.push("/stores/orderrequested");
       } else if (role === "ADMIN") {
         navigate.push("/admin/dashboard");
       }
