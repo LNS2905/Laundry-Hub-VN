@@ -126,7 +126,7 @@ export default function CardSettings({ submit, setSubmit, handleCancel, render, 
                                                 name="option1"
                                                 rules={[{ required: true, message: 'Please input about service!' }]}
                                             >
-                                                <Input type="number" />
+                                                <Input type="number" min={0} />
                                             </Form.Item>
                                         </Col>
                                     </Row>

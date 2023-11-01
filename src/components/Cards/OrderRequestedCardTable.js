@@ -12,9 +12,11 @@ export default function OrderRequestedCardTable({ color }) {
 
   useEffect(() => {
     const fetchData = async () => {
+      const account = JSON.parse(localStorage.getItem("account"));
+
       try {
-        const response = await api.get("api/v1/order/all-order-in-store/id");
-        setOrders(response.data);
+        const response = await api.get(`api/v1/order/all-order-in-store/${account.store.id}`);
+        setOrders(response.data.data);
         console.log(response.data);
       } catch (error) {
         console.error(error);
@@ -41,7 +43,7 @@ export default function OrderRequestedCardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Orders 
+                Orders
               </h3>
             </div>
           </div>

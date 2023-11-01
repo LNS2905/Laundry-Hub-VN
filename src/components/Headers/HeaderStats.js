@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // components
 
 import CardStats from "components/Cards/CardStats.js";
+import api from "config/axios";
 
 export default function HeaderStats() {
+  const [totalcus, setTotalCus] = React.useState(false);
+  const [totalstore, setTotalStore] = React.useState(false);
+  const [totalorder, setTotalOrder] = React.useState(false);
+  const [totalrevenue, setTotalRevenue] = React.useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const customerTotal = await api.get("api/v1/customer/count-customer");
+        setTotalCus(customerTotal.data);
+        const storeTotal = await api.get("api/v1/store/count-store");
+        setTotalStore(storeTotal.data);
+        const orderTotal = await api.get("api/v1/order/count-order");
+        setTotalOrder(orderTotal.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   return (
     <>
       {/* Header */}
@@ -15,8 +40,8 @@ export default function HeaderStats() {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="Customers"
-                  statTitle="875"
+                  statSubtitle="Total Customers"
+                  statTitle={totalcus.data}
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"
@@ -24,11 +49,12 @@ export default function HeaderStats() {
                   statIconName="fas fa-users"
                   statIconColor="bg-red-500"
                 />
+                
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="Stores"
-                  statTitle="20"
+                  statSubtitle="Total Stores"
+                  statTitle={totalstore.data}
                   statArrow="down"
                   statPercent="3.48"
                   statPercentColor="text-red-500"
@@ -39,8 +65,8 @@ export default function HeaderStats() {
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="Orders"
-                  statTitle="924"
+                  statSubtitle="Orders Processing"
+                  statTitle={totalorder.data}
                   statArrow="down"
                   statPercent="1.10"
                   statPercentColor="text-orange-500"

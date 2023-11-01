@@ -118,6 +118,14 @@ export default function CustomersCardTable({ color }) {
                     </span>
                   </th>
                   
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 "><span
+              className={
+                "ml-3 font-bold " +
+                +(color === "light" ? "text-blueGray-600" : "text-white")
+              }
+            >
+              {customer.name}
+            </span></td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"><span
               className={
                 "ml-3 font-bold " +

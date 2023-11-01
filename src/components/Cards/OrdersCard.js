@@ -6,15 +6,44 @@ import axios from 'axios';
 
 import TableDropdown from "components/Dropdowns/CustomerTableDropdown.js";
 import api from "config/axios";
+import { formatVND } from "utils/currencyUtils";
 
 export default function OrdersCardTable({ color }) {
   const [orders, setOrders] = useState([]);
+  const Steps = ({ size, current, items }) => (
+    <Steps
+    size="small"
+    current={4}
+    items={[
+      {
+        title: 'Finished',
+      },
+      {
+        title: 'In Progress',
+      },
+      {
+        title: 'Waiting',
+      },
+      {
+        title: 'Finished',
+      },
+      {
+        title: 'In Progress',
+      },
+      {
+        title: 'Waiting',
+      },
+    ]}
+  />
+  )
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("api/v1/order/all-order-in-store/id");
-        setOrders(response.data);
+        const response = await api.get("/api/v1/order/Order-of-customer");
+        setOrders(response.data.data);
       } catch (error) {
         console.error(error);
       }
@@ -40,7 +69,7 @@ export default function OrdersCardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Orders 
+                Orders
               </h3>
             </div>
           </div>
@@ -68,16 +97,6 @@ export default function OrdersCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Customer Name
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
-                >
                   Order Status
                 </th>
                 <th
@@ -88,7 +107,7 @@ export default function OrdersCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Order Date
+                  Total Price (Customer)
                 </th>
                 <th
                   className={
@@ -97,12 +116,35 @@ export default function OrdersCardTable({ color }) {
                       ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
-                ></th>
+                >
+                  Total Price (Store)
+                </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                >
+                Address
+                </th>
+                
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                >
+                 Phone
+                </th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
-                <tr key={index}>
+              {orders.map((order) => (
+                <tr key={order.id}>
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                     <span
                       className={
@@ -114,16 +156,36 @@ export default function OrdersCardTable({ color }) {
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {order.customerName}
+                    {order.orderStatus}
+                  </td>
+
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {formatVND(order.totalPrice)}  ({order.numberOfHeightCus} Kg)
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {order.status}
+                    {formatVND(order.totalPriceStoUp)} ({order.numberOfHeightSto == 0 ? order.numberOfHeightCus : order.numberOfWeightSto} Kg)
+                  </td>
+
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {order.address}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {order.customerNumber}
+                  </td>
+                  
+
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {orders.map((orderDetail) => (
+                      <tr key={orderDetail.id}>
+                        {orderDetail.name}
+                      </tr>
+                    ))}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {new Date(order.date).toLocaleDateString()}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                    <TableDropdown />
+                    <TableDropdown id={order.id} />
                   </td>
                 </tr>
               ))}

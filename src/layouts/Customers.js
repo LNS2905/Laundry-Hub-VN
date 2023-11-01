@@ -28,7 +28,7 @@ export default function Customers() {
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <Switch>                                
             <Route path="/customers/orders" exact component={CusOrders} />
-            <Route path="/customers/cusorderdetail" exact component={CusOrderDetail} />
+            <Route path="/customers/cusorderdetail/:id" exact component={CusOrderDetail} />
             <Route path="/customers/cusprofile" exact component={CusProfile} />
             <Redirect from="/customers" to="/customers/orders" />
           </Switch>
