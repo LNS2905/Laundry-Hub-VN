@@ -33,7 +33,9 @@ const AdminDropdown = () => {
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={'https://images.unsplash.com/profile-fb-1687415375-5592bc38a9e7.jpg?auto=format&fit=crop&q=60&bg=fff&crop=faces&dpr=1&h=32&w=32'}
+              src={
+                "https://images.unsplash.com/profile-fb-1687415375-5592bc38a9e7.jpg?auto=format&fit=crop&q=60&bg=fff&crop=faces&dpr=1&h=32&w=32"
+              }
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "default_image.jpg";
@@ -49,18 +51,19 @@ const AdminDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <Link to="/admin/adminprofile"
+        <Link
+          to="/admin/adminprofile"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-center"
-          }>
+          }
+        >
           Profile
         </Link>
 
         <button
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("role");
+            localStorage.removeItem('account');
             navigate.push("/");
           }}
         >
