@@ -9,6 +9,8 @@ import api from "config/axios";
 import { FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
 import { formatVND } from "utils/currencyUtils";
 import { toast } from "react-toastify";
+import { Link } from "@material-ui/core";
+
 
 
 export default function Index() {
@@ -56,11 +58,12 @@ export default function Index() {
 
   const account = JSON.parse(localStorage.getItem('account'));
   console.log(account);
-
+  console.log(store.rate)
   const fetch = async () => {
     const stores = await api.get(`/api/v1/store`);
     console.log(stores.data.data);
     setStore(stores.data.data);
+    console.log(store.rate)
   }
 
   const handleOk = () => {
@@ -151,12 +154,24 @@ export default function Index() {
         hoverable
 
         actions={[
-          account.role === 'CUSTOMER' ? (
+
+          account != null && account.role === 'CUSTOMER' ? (
             <Button type="primary" onClick={() => {
               setCurrentStoreId(store.id)
               setCurrentStore(store)
-            }}>Create Order</Button>
-          ) : null
+            }}>Order Now!</Button>
+          ) : 
+          account != null && (account.role === 'STORE' || account.role === 'ADMIN') ? (
+          <Button type="primary" onClick={() => {
+            alert('Please login as customer to order!');          
+            }}>Order Now!</Button>
+            ):
+            (
+              <Button type="primary" onClick={() => {
+                alert('Please login to order!');            
+                  window.location.href = "/auth/login";            
+                }}>Order Now!</Button>
+                )
         ]}
 
         cover={<img onError={(e) => {

@@ -7,36 +7,10 @@ import axios from 'axios';
 import TableDropdown from "components/Dropdowns/CustomerTableDropdown.js";
 import api from "config/axios";
 import { formatVND } from "utils/currencyUtils";
+import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 export default function OrdersCardTable({ color }) {
   const [orders, setOrders] = useState([]);
-  const Steps = ({ size, current, items }) => (
-    <Steps
-    size="small"
-    current={4}
-    items={[
-      {
-        title: 'Finished',
-      },
-      {
-        title: 'In Progress',
-      },
-      {
-        title: 'Waiting',
-      },
-      {
-        title: 'Finished',
-      },
-      {
-        title: 'In Progress',
-      },
-      {
-        title: 'Waiting',
-      },
-    ]}
-  />
-  )
-  
 
 
   useEffect(() => {
@@ -44,6 +18,7 @@ export default function OrdersCardTable({ color }) {
       try {
         const response = await api.get("/api/v1/order/Order-of-customer");
         setOrders(response.data.data);
+
       } catch (error) {
         console.error(error);
       }
@@ -87,7 +62,7 @@ export default function OrdersCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  Order ID
+                  Name of Service
                 </th>
                 <th
                   className={
@@ -127,9 +102,9 @@ export default function OrdersCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                Address
+                  Address
                 </th>
-                
+
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -138,8 +113,24 @@ export default function OrdersCardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                 Phone
+                  Phone
                 </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                >
+                  Order Date
+                </th>
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                  (color === "light"
+                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                }></th>
               </tr>
             </thead>
             <tbody>
@@ -152,7 +143,7 @@ export default function OrdersCardTable({ color }) {
                         +(color === "light" ? "text-blueGray-600" : "text-white")
                       }
                     >
-                      {order.id}
+                    {order.orderDetail[0].service.name}
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -172,18 +163,10 @@ export default function OrdersCardTable({ color }) {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {order.customerNumber}
                   </td>
-                  
-
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {orders.map((orderDetail) => (
-                      <tr key={orderDetail.id}>
-                        {orderDetail.name}
-                      </tr>
-                    ))}
-                  </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {new Date(order.date).toLocaleDateString()}
-                  </td>
+                  </td>                 
+                  
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                     <TableDropdown id={order.id} />
                   </td>

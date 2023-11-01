@@ -34,6 +34,7 @@ ReactDOM.render(
       <ProtectedRoute path="/customers" component={Customers} />
       <ProtectedRoute path="/store" component={Store} />
       
+      
 
       {/* add routes without layouts */}
       <Route path="/productpage" component={StoreView} />
