@@ -3,6 +3,7 @@ import { Badge, Button, Descriptions } from "antd";
 import ProgressBar from "./ProgressBar.js";
 import api from "config/axios.js";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min.js";
+import { formatVND } from "utils/currencyUtils.js";
 
 
 
@@ -23,7 +24,7 @@ const App = ({ color = "light" }) => {
       try {
         const response = await api.get(`/api/v1/order/${params.id}`);
         setOrder(response.data.data);
-        console.log(response.data.data.orderStatus);
+        console.log(response.data.data.orderDetail[0].price);
         setItems([
           {
             key: "1",
@@ -34,16 +35,11 @@ const App = ({ color = "light" }) => {
             key: "2",
             label: "Order Status",
             children: response.data.data.orderStatus,
-          },
-          // {
-          //   key: "3",
-          //   label: "Automatic Renewal",
-          //   children: "YES",
-          // },
+          },          
           {
             key: "3",
             label: "Order time",
-            children: "2018-04-24 18:00:00",
+            children: response.data.data.dayCreateOrder,
           },
           // {
           //   key: "5",
@@ -59,18 +55,18 @@ const App = ({ color = "light" }) => {
           },
           {
             key: "5",
-            label: "Services Amount",
-            children: "$80.00",
+            label: "Default Services",
+            children: formatVND(response.data.data.orderDetail[0].price)
           },
           {
             key: "6",
             label: "Optional Services",
-            children: "$20.00",
+            children:  formatVND(response.data.data.totalPrice - response.data.data.orderDetail[0].price)
           },
           {
             key: "7",
             label: "Official Receipts",
-            children: "$100.00",
+            children: formatVND(response.data.data.totalPrice)
           },
           {
             key: "8",

@@ -164,7 +164,7 @@ export default function OrdersCardTable({ color }) {
                     {order.customerNumber}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {new Date(order.date).toLocaleDateString()}
+                    {new Date(order.dayCreateOrder).toLocaleDateString()}
                   </td>                 
                   
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
