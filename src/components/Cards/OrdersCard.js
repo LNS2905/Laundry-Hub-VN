@@ -167,7 +167,7 @@ export default function OrdersCardTable({ color }) {
                     {new Date(order.dayCreateOrder).toLocaleDateString()}
                   </td>                 
                   
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
                     <TableDropdown id={order.id} />
                   </td>
                 </tr>

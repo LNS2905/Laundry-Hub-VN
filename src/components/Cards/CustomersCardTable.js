@@ -143,7 +143,7 @@ export default function CustomersCardTable({ color }) {
               {customer.address}
             </span></td>
 
-            <td border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
               <TableDropdown />
             </td>
           </tr>

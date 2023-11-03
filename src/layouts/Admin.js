@@ -1,8 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { Link } from "react-router-dom";
-import Footer from "components/Footers/Footer.js";
 // components
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -14,10 +12,9 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 // views
 
 import Dashboard from "views/admin/Dashboard.js";
-
-
 import CustomersTable from "views/admin/CustomersTable.js";
 import StoresTable from "views/admin/StoresTable.js";
+import AllOrderCard from "views/admin/AllOrder.js";
 
 export default function Admin() {
   return (
@@ -31,6 +28,7 @@ export default function Admin() {
           <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />                    
             <Route path="/admin/storestable" exact component={StoresTable} />
+            <Route path="/admin/allorder" exact component={AllOrderCard} />
            <Route path="/admin/customerstable" exact component={CustomersTable} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>

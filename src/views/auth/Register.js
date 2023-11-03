@@ -121,7 +121,12 @@ export default function Register() {
                       {
                         required: true,
                         message: "Please input your username!",
-                      },
+                      },                      
+                      {
+                        min: 8,
+                        message: "Please input between 8 to 50 characters!",
+                      }
+                      
                     ]}
                   >
                     <Input />
@@ -152,7 +157,12 @@ export default function Register() {
                         rules={[
                           {
                             required: true,
+                            message: "Please input your name!",
                           },
+                          {
+                            min: 8,
+                            message: "Please input between 8 to 50 characters!",
+                          }
                         ]}
                       >
                         <Input />
@@ -165,6 +175,11 @@ export default function Register() {
                           {
                             required: true,
                           },
+                          {
+                            min: 10,
+                            max: 11,
+                            message: "Please input right phone number!",
+                          }
                         ]}
                       >
                         <Input />

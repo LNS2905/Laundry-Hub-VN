@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, Descriptions } from "antd";
+import { Badge, Button, Descriptions, Steps  } from "antd";
 import ProgressBar from "./ProgressBar.js";
 import api from "config/axios.js";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min.js";

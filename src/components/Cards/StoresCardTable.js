@@ -7,7 +7,7 @@ import TableDropdown from "components/Dropdowns/StoreTableDropdown.js";
 
 
 export default function StoresCardTable({ color }) {
-  const [stores, setStores] = useState([]);   
+  const [stores, setStores] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +39,7 @@ export default function StoresCardTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Stores 
+                Stores
               </h3>
             </div>
           </div>
@@ -79,7 +79,16 @@ export default function StoresCardTable({ color }) {
                 >
                   Status
                 </th>
-
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  }
+                >
+                  Address
+                </th>
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -89,9 +98,9 @@ export default function StoresCardTable({ color }) {
                   }
                 >
                   Phone Number
-                </th>             
-                 
-                
+                </th>
+
+
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -101,14 +110,14 @@ export default function StoresCardTable({ color }) {
                   }
                 >
                   Rate
-                </th>     
+                </th>
                 <th className={
                   "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
                   (color === "light"
                     ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                 }>
-                </th>                       
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -130,23 +139,52 @@ export default function StoresCardTable({ color }) {
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <span
-                  className={
-                    "ml-3 font-bold " +
-                    +(color === "light" ? "text-blueGray-600" : "text-white")
-                  }
-                >
-                  {store.name}
-                </span>
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >
+                      {store.name}
+                    </span>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    <i className={`fas fa-circle text-${store.status === 'ACTIVE' ? 'green' : 'red'}-500 mr-2`}></i> {store.status.toLowerCase()}
+                    <i className={`fas fa-circle text-${store.status === 'ACTIVE' ? 'green' : 'red'}-500 mr-2`}></i>
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >{store.status.toLowerCase()}
+                    </span>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {store.phoneNumber}
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >{store.address}
+                    </span>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {store.rate} <i className="fas fa-star text-yellow-500"></i>
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >
+                      {store.phoneNumber}
+                    </span>
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                      }
+                    >{store.rate.toFixed(1)} <i className="fas fa-star text-yellow-500"></i>
+                    </span>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
                     <TableDropdown />
