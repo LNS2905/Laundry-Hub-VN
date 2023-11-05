@@ -1,7 +1,9 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
+import api from "config/axios";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
-const NotificationDropdown = () => {
+const NotificationDropdown = ({ id }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -15,6 +17,16 @@ const NotificationDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+  
+  const handleUpdate = async () => {
+    try {
+      await api.put(`/${id}/deactive-account`);
+      alert('Cập nhật thành công');
+    } catch (error) {
+      alert('Có lỗi xảy ra khi cập nhật');
+    }
+  };
+  
   return (
     <>
       <a
@@ -40,9 +52,12 @@ const NotificationDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => {
+            e.preventDefault();
+            handleUpdate();
+          }}
         >
-          Complete
+          Cập nhật
         </a>
         <a
           href="#pablo"
@@ -51,8 +66,17 @@ const NotificationDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Cancel
+          Hủy
         </a>
+
+        <Link
+          to={`/store/storeorderdetail/${id}`}
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+        >
+          Detail
+        </Link>
         
       </div>
     </>

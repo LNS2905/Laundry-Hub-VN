@@ -3038,3 +3038,7 @@ select {
 
 @media (min-width: 1536px) {
 }
+
+.text-green-500{
+  color: rgb(74 222 128) !important;
+}

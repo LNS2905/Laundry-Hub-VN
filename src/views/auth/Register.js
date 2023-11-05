@@ -1,14 +1,17 @@
 import { Button, Checkbox, Form, Input, Select } from "antd";
+import Upload from "antd/es/upload/Upload";
 import api from "config/axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import uploadVideo from "utils/uploadImage";
 
 const { Option } = Select;
 
 export default function Register() {
   const [role, setRole] = useState("CUSTOMER");
+  const [file, setFile] = useState('https://free-icon-rainbow.com/i/icon_01993/icon_019930_256.jpg');
   const navigate = useHistory();
   const onFinish = async (values) => {
     const data = {
@@ -18,7 +21,7 @@ export default function Register() {
       customer: {
         name: values.name,
         phone_number: values.phone_number,
-        avatar: values.avatar,
+        avatar: file,
         address: values.address,
       },
       store: {
@@ -185,18 +188,8 @@ export default function Register() {
                         <Input />
                       </Form.Item>
 
-                      {/*<Form.Item
-                        name="avatar"
-                        label="Avatar"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                      */}
+
+                      
 
                       <Form.Item
                         name="address"
@@ -209,6 +202,23 @@ export default function Register() {
                       >
                         <Input />
                       </Form.Item>
+
+                      <Form.Item
+                      name="avatar"
+                      label="Avatar"
+                      rules={[
+                        {
+                          required: true,
+                        },
+                      ]}
+                    >
+                      <input type="file" onChange={async (e)=>{
+                        const file = e.target.files[0];
+                        const url = await uploadVideo(file);
+                        setFile(url)
+                      }}/>
+                    </Form.Item>
+
                     </>
                   )}
 

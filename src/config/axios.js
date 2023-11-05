@@ -11,6 +11,7 @@ api.interceptors.request.use(
     console.log("run interceptor");
     // Do something before request is sent
     const token = localStorage.getItem("token");
+    console.log(token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

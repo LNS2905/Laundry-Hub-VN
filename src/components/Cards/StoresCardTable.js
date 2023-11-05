@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 // components
 import api from "config/axios";
 import TableDropdown from "components/Dropdowns/StoreTableDropdown.js";
+import { Switch } from "antd";
 
 
 export default function StoresCardTable({ color }) {
@@ -26,8 +27,7 @@ export default function StoresCardTable({ color }) {
     <>
       <div
         className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-          (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
+          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white text-black"
         }
       >
         <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -35,8 +35,7 @@ export default function StoresCardTable({ color }) {
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3
                 className={
-                  "font-semibold text-lg " +
-                  (color === "light" ? "text-blueGray-700" : "text-white")
+                  "font-semibold text-lg text-black"
                 }
               >
                 Stores
@@ -46,55 +45,40 @@ export default function StoresCardTable({ color }) {
         </div>
         <div className="block w-full overflow-x-auto">
           {/* Stores table */}
-          <table className="items-center w-full bg-transparent border-collapse">
+          <table className="items-center w-full bg-white border-collapse">
             <thead>
               <tr>
                 <th
                   className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                   }
                 >
                   Store ID
                 </th>
                 <th
                   className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                   }
                 >
                   Name
                 </th>
                 <th
                   className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                   }
                 >
                   Status
                 </th>
                 <th
                   className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                   }
                 >
                   Address
                 </th>
                 <th
                   className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                   }
                 >
                   Phone Number
@@ -103,19 +87,13 @@ export default function StoresCardTable({ color }) {
 
                 <th
                   className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                   }
                 >
                   Rate
                 </th>
                 <th className={
-                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                  (color === "light"
-                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-white text-black border-blueGray-100"
                 }>
                 </th>
               </tr>
@@ -131,8 +109,7 @@ export default function StoresCardTable({ color }) {
                     ></img>{" "}
                     <span
                       className={
-                        "ml-3 font-bold " +
-                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                        "ml-3 font-bold text-black"
                       }
                     >
                       {store.id}
@@ -141,8 +118,7 @@ export default function StoresCardTable({ color }) {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <span
                       className={
-                        "ml-3 font-bold " +
-                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                        "ml-3 font-bold text-black"
                       }
                     >
                       {store.name}
@@ -152,17 +128,26 @@ export default function StoresCardTable({ color }) {
                     <i className={`fas fa-circle text-${store.status === 'ACTIVE' ? 'green' : 'red'}-500 mr-2`}></i>
                     <span
                       className={
-                        "ml-3 font-bold " +
-                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                        "ml-3 font-bold text-black"
                       }
-                    >{store.status.toLowerCase()}
+                    >
+                    <Switch defaultChecked={store.status === 'ACTIVE'} onChange={async (value)=>{
+                        console.log(value);
+                        if(!value){
+                          try {
+                            const response = await api.put(`/${store.id}/deactive-store`);
+                            console.log(response);
+                          } catch (error) {
+                            console.error(error);
+                          }
+                        }
+                    }} />
                     </span>
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <span
                       className={
-                        "ml-3 font-bold " +
-                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                        "ml-3 font-bold text-black"
                       }
                     >{store.address}
                     </span>
@@ -170,8 +155,7 @@ export default function StoresCardTable({ color }) {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <span
                       className={
-                        "ml-3 font-bold " +
-                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                        "ml-3 font-bold text-black"
                       }
                     >
                       {store.phoneNumber}
@@ -180,8 +164,7 @@ export default function StoresCardTable({ color }) {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <span
                       className={
-                        "ml-3 font-bold " +
-                        +(color === "light" ? "text-blueGray-600" : "text-white")
+                        "ml-3 font-bold text-black"
                       }
                     >{store.rate.toFixed(1)} <i className="fas fa-star text-yellow-500"></i>
                     </span>

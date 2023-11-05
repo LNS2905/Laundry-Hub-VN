@@ -8,6 +8,7 @@ import StoreSidebar from "components/Sidebar/StoreSidebar.js";
 import CusHeader from "components/Headers/CusHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 import StoreProfile from "views/store/StoreProfile.js";
+import StoreOrderDetail from "components/Cards/StoreOrderDetail.js";
 
 
 // views
@@ -33,6 +34,7 @@ export default function Store() {
           <Route path="/store/orderrequested" exact component={OrderRequested} />
           <Route path="/store/services" exact component={ServicesPage} />
           <Route path="/store/storeprofile" exact component={StoreProfile} />
+          <Route path="/store/storeorderdetail/:id" exact component={StoreOrderDetail} />
             <Redirect from="/store" to="/store/orderrequested" />
           </Switch>
           <FooterAdmin />
