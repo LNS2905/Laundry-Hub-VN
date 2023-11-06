@@ -38,7 +38,8 @@ export default function Index() {
   const onFinish = async (values) => {
     console.log(values);
     const option = [];
-    option.push(values.washType);
+    
+    option.push(services.filter((item) => item.id === values.washType)[0].options[0].id);
     for (const key in values) {
       if (key.startsWith("option-")) {
         option.push(values[key]);
@@ -213,13 +214,13 @@ export default function Index() {
             <img
               onError={(e) => {
                 e.target.src =
-                  "https://i.ytimg.com/vi/fR73eqKHmu4/maxresdefault.jpg";
+                  "https://images.unsplash.com/photo-1665912014038-8c78434db1ff?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
               }}
               alt="example"
               src={
                 store.coverPhoto
                   ? store.coverPhoto
-                  : "https://i.ytimg.com/vi/fR73eqKHmu4/maxresdefault.jpg"
+                  : "https://images.unsplash.com/photo-1665912014038-8c78434db1ff?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               }
             />
           }
@@ -270,10 +271,10 @@ export default function Index() {
           placeholder="Type to search"
           style={{ width: "50%", margin: "20px auto", display: "block" }}
         />
-        <Row gutter={12} style={{ padding: 30 }}>
+        <Row gutter={[12,12]} style={{ padding: 30 }}>
           {store
             .filter((item) =>
-              item.name.toLowerCase().includes(key.toLowerCase())
+              item.name.toLowerCase().includes(key.toLowerCase()) && item.status === "ACTIVE"
             )
             .map(mapToHtml)}
         </Row>

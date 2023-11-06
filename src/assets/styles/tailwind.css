@@ -3042,3 +3042,17 @@ select {
 .text-green-500{
   color: rgb(74 222 128) !important;
 }
+
+/* .bg-gray-500{
+  background-color: rgb(156 163 175) !important;
+} */
+
+.ant-card-cover img{
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#root{
+  background-color: #f5f3f3;
+}

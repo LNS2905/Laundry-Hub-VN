@@ -17,7 +17,7 @@ export default function ServicesPage({ color }) {
   const [render, setRender] = useState(0);
 
   const fetchData = async () => {
-    const res = await api.get("http://143.198.196.146:8080/api/v1/service")
+    const res = await api.get("/api/v1/service")
     console.log(res.data.data);
     const data = res.data.data;
     setServices(data);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, Col, Descriptions, Row, Steps } from "antd";
+import { Badge, Button, Col, Descriptions, Form, Input, Modal, Row, Steps } from "antd";
 import ProgressBar from "./ProgressBar.js";
 import api from "config/axios.js";
 import { useParams } from "react-router-dom";
@@ -7,10 +7,31 @@ import { formatVND } from "utils/currencyUtils.js";
 import StoreProgressBar from "./StoreProgressBar.js";
 import { toast } from "react-toastify";
 import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
+import { useForm } from "antd/es/form/Form.js";
 
 const App = ({ color = "light" }) => {
     const [Orders, setOrder] = useState({});
     const [items, setItems] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [form] = useForm();
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = async () => {
+        form.submit();
+
+    };
+    const onFinish = async (values) => {
+        console.log(values);
+        const response = await api.put(`api/v1/order/${Orders.id}/update-number-of-height?numberOfHeight=${values.numberOfHeight}`);
+        const response2 = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=RECEIVE`)
+        toast.success("Receive successfully!");
+        fetchData();
+        setIsModalOpen(false);
+    }
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     const params = useParams();
     const Step = () => {
         const params = useParams();
@@ -34,7 +55,7 @@ const App = ({ color = "light" }) => {
                 title: "DONE",
             }
         ]);
-        
+
 
         useEffect(() => {
             const fetchData = async () => {
@@ -51,28 +72,32 @@ const App = ({ color = "light" }) => {
                             {
                                 title: "STORE_REJECT",
                                 status: "error",
-                                
+
                             },
                         ])
                     }
-                     else {
+                    else {
                         let isProcess = false;
+                        let isWait = false
                         const steps = items.map((item, index) => {
                             if (item.title === status && status === "DONE") {
                                 isProcess = true;
                                 item.status = "finish";
 
                             }
-                           else if (item.title === status) {
+                            else if (item.title === status) {
                                 isProcess = true;
-                                item.status = "process";
-                                item.icon = <LoadingOutlined />
-                            } 
-                             else {
+                                item.status = "finish";
+                            }
+                            else {
                                 if (isProcess) {
                                     item.status = "wait";
+                                    if(!isWait){
+                                        item.icon = <LoadingOutlined />
+                                        isWait = true;
+                                    }
                                 } else {
-                                    item.status = "finish";
+                                    item.status = "finish";                                    
                                 }
                             }
                             return {
@@ -205,11 +230,27 @@ const App = ({ color = "light" }) => {
                     <Button style={{
                         width: 100
                     }} type="primary" onClick={async () => {
-                        const response = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=RECEIVE`)
-                        toast.success("Receive successfully!");
-                        fetchData()
+                        showModal();
+
+                        // const setNumberOfHeightSto = await api.put(`api/v1/order/${Orders.id}/update-number-of-height?numberOfHeightSto=${numberOfHeight}`);
+                        // toast.success("Receive successfully!");
+                        // fetchData()
                     }}>Receive</Button></Col>
 
+                <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Form form={form} onFinish={onFinish}>
+                        <Form.Item rule={
+                            [
+                                {
+                                    required: true,
+                                    message: "Please input number of height store!"
+                                }
+                            ]
+                        } label="Number of Height Store" name="numberOfHeight" >
+                            <Input />
+                        </Form.Item>
+                    </Form>
+                </Modal>
             </Row>
         } else if (Orders.orderStatus === "RECEIVE") {
             return <Row gutter={12} justify={"end"} style={{
@@ -224,7 +265,6 @@ const App = ({ color = "light" }) => {
                         toast.success("Processing!");
                         fetchData()
                     }}>Processing</Button></Col>
-
             </Row>
         } else if (Orders.orderStatus === "PROCESSING") {
             return <Row gutter={12} justify={"end"} style={{

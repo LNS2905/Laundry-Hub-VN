@@ -259,19 +259,21 @@ export default function Register() {
                       >
                         <Input />
                       </Form.Item>
-                      {/*
                       <Form.Item
-                        name="coverPhoto"
-                        label="Avatar"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-                      */}
+                      name="coverPhoto"
+                      label="Avatar"
+                      rules={[
+                        {
+                          required: true,
+                        },
+                      ]}
+                    >
+                      <input type="file" onChange={async (e)=>{
+                        const file = e.target.files[0];
+                        const url = await uploadVideo(file);
+                        setFile(url)
+                      }}/>
+                    </Form.Item>
                     </>
                   )}
 

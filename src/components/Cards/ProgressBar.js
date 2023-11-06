@@ -33,7 +33,7 @@ const Step = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(`api/v1/order/${params.id}`);
+        const response = await api.get(`api/v1/order/view-by-customer/${params.id}`);
         const status = response.data.data.orderStatus;
         const resStore = 
         console.log(status);
