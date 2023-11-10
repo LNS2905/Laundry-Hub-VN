@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import ServicesDropdown from "components/Dropdowns/ServicesDropdown.js";
 import api from "config/axios";
-import { Button, Tag, Modal } from "antd";
+import { Button, Tag, Modal, Switch } from "antd";
 import CreateService from "./CreateService";
 
 export default function ServicesPage({ color }) {
@@ -43,8 +43,7 @@ export default function ServicesPage({ color }) {
     <>
       <div
         className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-          (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
+          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white text-black"
         }
       >
         <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -52,31 +51,30 @@ export default function ServicesPage({ color }) {
             <div className="relative w-full px-4 max-w-full flex-grow flex-1 justify-between">
               <h3
                 className={
-                  "font-semibold text-lg flex justify-between " +
-                  (color === "light" ? "text-blueGray-700" : "text-white")
+                  "font-semibold text-lg text-black"
                 }
               >
                 <span>Services</span>  <>
-                <Button type="primary" onClick={showModal}>
-                  Create new service
-                </Button>
-                <Modal
-                  open={open}                  
-                  onOk={handleOk}
-                  onCancel={handleCancel}
-                  footer={[
-                    <Button key="back" onClick={handleCancel}>
-                      Cancel
-                    </Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                      Create
-                    </Button>,
-                    
-                  ]}
-                >
-                  <CreateService submit={submit} setSubmit={setSubmit} handleCancel={handleCancel} render={render} setRender={setRender}/>
-                </Modal>
-              </>
+                  <Button type="primary" onClick={showModal}>
+                    Create new service
+                  </Button>
+                  <Modal
+                    open={open}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    footer={[
+                      <Button key="back" onClick={handleCancel}>
+                        Cancel
+                      </Button>,
+                      <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+                        Create
+                      </Button>,
+
+                    ]}
+                  >
+                    <CreateService submit={submit} setSubmit={setSubmit} handleCancel={handleCancel} render={render} setRender={setRender} />
+                  </Modal>
+                </>
               </h3>
 
             </div>
@@ -87,61 +85,37 @@ export default function ServicesPage({ color }) {
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
+                }
                 >
                   Services ID
                 </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
+                }
                 >
                   Services Name
                 </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
+                }
                 >
                   Description
                 </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
+                }
                 >
                   Image
                 </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
+                }
                 >options</th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                  }
+                <th className={
+                  "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
+                }
                 ></th>
               </tr>
             </thead>
@@ -167,7 +141,7 @@ export default function ServicesPage({ color }) {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <img src={service.figure} width={100} style={{
                       borderRadius: 10
-                    }}/>
+                    }} />
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {service.options.map((option, index) => {
@@ -175,7 +149,28 @@ export default function ServicesPage({ color }) {
                     })}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                    <ServicesDropdown />
+                    <Switch defaultChecked={service.status === 'ACTIVE'} onChange={async (value) => {
+                      console.log(value);
+                      if (!value) {
+                        try {
+                          const response = await api.delete(`api/v1/service/${service.id}`);
+                          console.log(response);
+                          fetchData();
+                        } catch (error) {
+                          console.error(error);
+                        }
+                      }
+                      else {
+                        try {
+                          const response = await api.delete(`api/v1/service/${service.id}`);
+                          console.log(response);
+                          fetchData();
+                        } catch (error) {
+                          console.error(error);
+                        }
+
+                      }
+                    }} />
                   </td>
                 </tr>
               ))}

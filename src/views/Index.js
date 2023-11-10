@@ -1,11 +1,12 @@
 /*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Carousel } from 'antd';
+import { Button, Card, Carousel, Col, Flex, Rate, Row } from 'antd';
 import Navbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import api from "config/axios";
-
+import Meta from "antd/es/card/Meta";
+import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
 
 const contentStyle = {
   height: '160px',
@@ -13,6 +14,10 @@ const contentStyle = {
   lineHeight: '160px',
   textAlign: 'center',
   background: '#364d79',
+  borderRadius: '10px', overflow: 'hidden',
+  backgroundSize: 'cover',
+  textAlign: 'center',
+
 };
 
 
@@ -27,6 +32,14 @@ export default function Index() {
     console.log(stores.data.data);
     setStore(stores.data.data);
     console.log(store.rate);
+  };
+
+  const customIcons = {
+    1: <FrownOutlined />,
+    2: <FrownOutlined />,
+    3: <MehOutlined />,
+    4: <SmileOutlined />,
+    5: <SmileOutlined />,
   };
   useEffect(fetch, []);
   return (
@@ -256,11 +269,44 @@ export default function Index() {
                 </p>
               </div>
             </div>
-            <Carousel autoplay>
+
+            <Carousel >
               <div>
-                {store.slice(0, 4).map((store) => (
-                  <h3 style={contentStyle}>{store.name}</h3>
-                ))}
+                <Row className="rounded-lg" gutter={12}>
+                  {store.slice(0, 4).map((store) => (
+                    <Col span={6} style={{ minHeight: '500px' }}>
+
+                      <Card
+                        hoverable
+
+                        cover={
+                          <img
+                            onError={(e) => {
+                              e.target.src =
+                                "https://images.unsplash.com/photo-1665912014038-8c78434db1ff?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+                            }}
+                            alt="example"
+                            src={
+                              store.coverPhoto
+                                ? store.coverPhoto
+                                : "https://images.unsplash.com/photo-1665912014038-8c78434db1ff?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            }
+                          />
+                        }
+                      >
+                        <Meta title={store.name} description={store.address} />
+                        <Meta description={store.description + " - " + store.phoneNumber} />
+                        <Rate
+                          style={{ marginTop: 20 }}
+                          disabled
+                          defaultValue={store.rate}
+                          character={({ index }) => customIcons[index + 1]}
+                        />
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+
               </div>
               <div>
                 <h3 style={contentStyle}>2</h3>
@@ -273,9 +319,9 @@ export default function Index() {
               </div>
             </Carousel>
           </div>
-        </section>
+        </section >
 
-      </main>
+      </main >
       <Footer />
     </>
   );

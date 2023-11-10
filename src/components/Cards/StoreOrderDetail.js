@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Col, Descriptions, Form, Input, Modal, Row, Steps } from "antd";
-import ProgressBar from "./ProgressBar.js";
 import api from "config/axios.js";
 import { useParams } from "react-router-dom";
 import { formatVND } from "utils/currencyUtils.js";
-import StoreProgressBar from "./StoreProgressBar.js";
 import { toast } from "react-toastify";
 import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
 import { useForm } from "antd/es/form/Form.js";
+import uploadVideo from "utils/uploadImage";
+
 
 const App = ({ color = "light" }) => {
     const [Orders, setOrder] = useState({});
     const [items, setItems] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = useForm();
+    const [file, setFile] = useState('https://free-icon-rainbow.com/i/icon_01993/icon_019930_256.jpg');
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -24,7 +25,8 @@ const App = ({ color = "light" }) => {
     const onFinish = async (values) => {
         console.log(values);
         const response = await api.put(`api/v1/order/${Orders.id}/update-number-of-height?numberOfHeight=${values.numberOfHeight}`);
-        const response2 = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=RECEIVE`)
+        const response2 = await api.put(`/api/v1/order/${Orders.id}/update-status?status=RECEIVE`)
+
         toast.success("Receive successfully!");
         fetchData();
         setIsModalOpen(false);
@@ -92,12 +94,12 @@ const App = ({ color = "light" }) => {
                             else {
                                 if (isProcess) {
                                     item.status = "wait";
-                                    if(!isWait){
+                                    if (!isWait) {
                                         item.icon = <LoadingOutlined />
                                         isWait = true;
                                     }
                                 } else {
-                                    item.status = "finish";                                    
+                                    item.status = "finish";
                                 }
                             }
                             return {
@@ -172,24 +174,24 @@ const App = ({ color = "light" }) => {
                 },
                 {
                     key: "8",
-                    label: "Config Info",
+                    label: "Description",
                     children: (
-                        <>
-                            Services: MongoDB
-                            <br />
-                            Database version: 3.4
-                            <br />
-                            Package: dds.mongo.mid
-                            <br />
-                            Storage space: 10 GB
-                            <br />
-                            Replication factor: 3
-                            <br />
-                            Region: East China 1
-                            <br />
-                        </>
+
+                        response.data.data.description
+
                     ),
                 },
+                {
+                    key: "9",
+                    label: "Feedback",
+                    children: response.data.data.feedback
+                },
+                {
+                    key: "10",
+                    label: "Rating",
+                    children: response.data.data.rate
+                }
+
             ])
         } catch (error) {
             console.error(error);
@@ -206,7 +208,7 @@ const App = ({ color = "light" }) => {
                     <Button style={{
                         width: 100
                     }} type="primary" onClick={async () => {
-                        const response = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=STORE_APPROVE`)
+                        const response = await api.put(`/api/v1/order/${Orders.id}/update-status?status=STORE_APPROVE`)
                         toast.success("Approve successfully!");
                         fetchData()
                     }}>Approve</Button></Col>
@@ -214,10 +216,18 @@ const App = ({ color = "light" }) => {
                     width: 100,
                     backgroundColor: "red",
                 }} type="primary" onClick={async () => {
-                    const response = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=STORE_REJECT`)
+                    const response = await api.put(`/api/v1/order/${Orders.id}/update-status?status=STORE_REJECT`)
+
                     toast.success("Reject successfully!");
                     fetchData()
                 }}>Reject</Button>
+                <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Form form={form} onFinish={onFinish}>
+                        <Form.Item name={`feedback`} label={`Feedback`}>
+                            <Input />
+                        </Form.Item>
+                    </Form>
+                </Modal>
             </Row >
         }
 
@@ -249,6 +259,22 @@ const App = ({ color = "light" }) => {
                         } label="Number of Height Store" name="numberOfHeight" >
                             <Input />
                         </Form.Item>
+                        <Form.Item
+                            name="avatar"
+                            label="Avatar"
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            <input type="file" onChange={async (e) => {
+                                const file = e.target.files[0];
+                                const url = await uploadVideo(file);
+                                setFile(url)
+                                console.log(url);
+                            }} />
+                        </Form.Item>
                     </Form>
                 </Modal>
             </Row>
@@ -258,13 +284,15 @@ const App = ({ color = "light" }) => {
                 paddingBottom: 20
             }}>
                 <Col>
+
                     <Button style={{
                         width: 100
                     }} type="primary" onClick={async () => {
-                        const response = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=PROCESSING`)
+                        const response = await api.put(`/api/v1/order/${Orders.id}/update-status?status=PROCESSING`)
                         toast.success("Processing!");
                         fetchData()
                     }}>Processing</Button></Col>
+
             </Row>
         } else if (Orders.orderStatus === "PROCESSING") {
             return <Row gutter={12} justify={"end"} style={{
@@ -275,7 +303,7 @@ const App = ({ color = "light" }) => {
                     <Button style={{
                         width: 100
                     }} type="primary" onClick={async () => {
-                        const response = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=DELIVERED`)
+                        const response = await api.put(`/api/v1/order/${Orders.id}/update-status?status=DELIVERED`)
                         toast.success("Delivered!");
                         fetchData()
                     }}>Delivered</Button></Col>
@@ -290,7 +318,7 @@ const App = ({ color = "light" }) => {
                     <Button style={{
                         width: 100
                     }} type="primary" onClick={async () => {
-                        const response = await api.patch(`/api/v1/order/${Orders.id}/update-status?status=DONE`)
+                        const response = await api.put(`/api/v1/order/${Orders.id}/update-status?status=DONE`)
                         toast.success("Done!");
                         fetchData()
                     }}>Done</Button></Col>

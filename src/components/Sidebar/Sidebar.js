@@ -77,7 +77,7 @@ export default function AdminSidebar() {
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-            
+
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
@@ -99,28 +99,6 @@ export default function AdminSidebar() {
                     }
                   ></i>{" "}
                   Dashboard
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/settings"
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Settings
                 </Link>
               </li>
 
@@ -166,8 +144,8 @@ export default function AdminSidebar() {
                   ></i>{" "}
                   Orders Table
                 </Link>
-              </li>   
-              
+              </li>
+
               <li className="items-center">
                 <Link
                   className={
@@ -188,9 +166,9 @@ export default function AdminSidebar() {
                   ></i>{" "}
                   Customers Table
                 </Link>
-              </li> 
-              
-            </ul>                                   
+              </li>
+
+            </ul>
           </div>
         </div>
       </nav>

@@ -20,6 +20,8 @@ export default function HeaderStats() {
         setTotalStore(storeTotal.data);
         const orderTotal = await api.get("api/v1/order/count-order");
         setTotalOrder(orderTotal.data);
+        const revenueTotal = await api.get("/revenue");
+        setTotalRevenue(revenueTotal.data);
         // console.log(response.data);
       } catch (error) {
         console.error(error);
@@ -72,7 +74,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Revenue"
-                  statTitle="$745"
+                  statTitle={totalrevenue.data}
 
                   statIconName="fas fa-chart-line"
                   statIconColor="bg-lightBlue-500"

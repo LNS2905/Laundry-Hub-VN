@@ -38,7 +38,7 @@ export default function Index() {
   const onFinish = async (values) => {
     console.log(values);
     const option = [];
-    
+
     option.push(services.filter((item) => item.id === values.washType)[0].options[0].id);
     for (const key in values) {
       if (key.startsWith("option-")) {
@@ -129,10 +129,10 @@ export default function Index() {
       (item) => item.title === "WASH" && item.defaultValue
     )[0]
       ? Number(
-          services.data.data.filter(
-            (item) => item.title === "WASH" && item.defaultValue
-          )[0]?.id
-        )
+        services.data.data.filter(
+          (item) => item.title === "WASH" && item.defaultValue
+        )[0]?.id
+      )
       : Number(services.data.data[0]?.id);
     console.log(defaultService);
     form.setFieldsValue({
@@ -271,7 +271,7 @@ export default function Index() {
           placeholder="Type to search"
           style={{ width: "50%", margin: "20px auto", display: "block" }}
         />
-        <Row gutter={[12,12]} style={{ padding: 30 }}>
+        <Row gutter={[12, 12]} style={{ padding: 30 }}>
           {store
             .filter((item) =>
               item.name.toLowerCase().includes(key.toLowerCase()) && item.status === "ACTIVE"
@@ -334,10 +334,10 @@ export default function Index() {
                 (item) => item.title === "WASH" && item.defaultValue
               )[0]
                 ? Number(
-                    services.filter(
-                      (item) => item.title === "WASH" && item.defaultValue
-                    )[0]?.id
-                  )
+                  services.filter(
+                    (item) => item.title === "WASH" && item.defaultValue
+                  )[0]?.id
+                )
                 : Number(services[0]?.id)
             }
             name="washType"

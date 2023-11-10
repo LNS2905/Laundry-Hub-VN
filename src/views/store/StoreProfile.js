@@ -8,11 +8,9 @@ import StoreProfile from "components/Cards/StoreProfile";
 export default function StoreInfor() {
   return (
     <>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
+
         <div className="w-full lg:w-8/12 px-4">
-          <StoreSetting />
-        </div>
-        <div className="w-full lg:w-4/12 px-4">
           <StoreProfile />
         </div>
       </div>

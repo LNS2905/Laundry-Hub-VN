@@ -1,8 +1,50 @@
-import React from "react";
+import { Form, Input } from "antd";
+import api from "config/axios";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { toast } from "react-toastify";
+import uploadVideo from "utils/uploadImage";
 
 // components
 
 export default function CardSettings() {
+  const [file, setFile] = useState('https://free-icon-rainbow.com/i/icon_01993/icon_019930_256.jpg');
+  const navigate = useHistory();
+  const onFinish = async (values) => {
+    const data = {
+      username: values.username,
+      password: values.password,
+      role: values.role,
+      customer: {
+        name: values.name,
+        phone_number: values.phone_number,
+        avatar: file,
+        address: values.address,
+      },
+      store: {
+        name: values.name,
+        address: values.address,
+        phoneNumber: values.phoneNumber,
+        status: values.status,
+        coverPhoto: values.coverPhoto,
+      }
+    }
+    console.log(data);
+    try {
+      await api.post('/signup', data)
+      toast.success("Sign up successfully!");
+      navigate.push("/auth/login");
+    } catch (e) {
+
+      toast.error(e.response.data);
+    }
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+    toast.error("Sign up failed!");
+
+  };
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
@@ -25,11 +67,32 @@ export default function CardSettings() {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
+                  <Form.Item
+                    name="name"
+                    label="Customer name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your name!",
+                      },
+                      {
+                        min: 8,
+                        message: "Please input between 8 to 50 characters!",
+                      }
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </div>
+              </div>
+
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Username
+                    Phone Number
                   </label>
                   <input
                     type="text"
@@ -38,51 +101,7 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
+
             </div>
 
             <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -106,53 +125,22 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    City
-                  </label>
-                  <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Postal Code
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue=""
-                  />
-                </div>
-              </div>
+              <Form.Item
+                name="avatar"
+                label="Avatar"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <input type="file" onChange={async (e) => {
+                  const file = e.target.files[0];
+                  const url = await uploadVideo(file);
+                  setFile(url)
+                }} />
+              </Form.Item>
             </div>
-
             <hr className="mt-6 border-b-1 border-blueGray-300" />
 
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">

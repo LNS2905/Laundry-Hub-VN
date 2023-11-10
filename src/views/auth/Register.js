@@ -1,6 +1,10 @@
 import { Button, Checkbox, Form, Input, Select } from "antd";
 import Upload from "antd/es/upload/Upload";
+import OPTChecker from "components/otp";
 import api from "config/axios";
+import { GGProvider } from "config/firebase";
+import { auth } from "config/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +14,7 @@ import uploadVideo from "utils/uploadImage";
 const { Option } = Select;
 
 export default function Register() {
+  const [form] = Form.useForm();
   const [role, setRole] = useState("CUSTOMER");
   const [file, setFile] = useState('https://free-icon-rainbow.com/i/icon_01993/icon_019930_256.jpg');
   const navigate = useHistory();
@@ -38,7 +43,7 @@ export default function Register() {
       toast.success("Sign up successfully!");
       navigate.push("/auth/login");
     } catch (e) {
-      
+
       toast.error(e.response.data);
     }
   };
@@ -60,25 +65,50 @@ export default function Register() {
                     Sign up with
                   </h6>
                 </div>
-                <div className="btn-wrapper text-center">
-                  <a href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg">
-                    <button
-                      className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      <img
-                        alt="..."
-                        className="w-5 mr-1"
-                        src={require("assets/img/google.svg").default}
-                      />
-                      Google
-                    </button>
-                  </a>
+                <div className="btn-wrapper text-center" onClick={() => {
+                  signInWithPopup(auth, GGProvider)
+                    .then((result) => {
+                      // This gives you a Google Access Token. You can use it to access the Google API.
+                      const credential = GoogleAuthProvider.credentialFromResult(result);
+                      const token = credential.accessToken;
+                      // The signed-in user info.
+                      const user = result.user;
+                      console.log(user);
+                      form.setFieldValue('username', user.email)
+                      form.setFieldValue('name', user.displayName)
+                      form.setFieldValue('name', user.displayName)
+                      setFile(user.photoURL)
+                      // IdP data available using getAdditionalUserInfo(result)
+                      // ...
+                    }).catch((error) => {
+                      console.log(error);
+                      // Handle Errors here.
+                      // const errorCode = error.code;
+                      // const errorMessage = error.message;
+                      // // The email of the user's account used.
+                      // const email = error.customData.email;
+                      // // The AuthCredential type that was used.
+                      // const credential = GGProvider.credentialFromError(error);
+                      // ...
+                    });
+                }}>
+                  <button
+                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    <img
+                      alt="..."
+                      className="w-5 mr-1"
+                      src={require("assets/img/google.svg").default}
+                    />
+                    Google
+                  </button>
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <Form
+                  form={form}
                   name="basic"
                   labelCol={{
                     span: 8,
@@ -124,12 +154,12 @@ export default function Register() {
                       {
                         required: true,
                         message: "Please input your username!",
-                      },                      
+                      },
                       {
                         min: 8,
                         message: "Please input between 8 to 50 characters!",
                       }
-                      
+
                     ]}
                   >
                     <Input />
@@ -171,25 +201,7 @@ export default function Register() {
                         <Input />
                       </Form.Item>
 
-                      <Form.Item
-                        name="phone_number"
-                        label="Phone number"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                          {
-                            min: 10,
-                            max: 11,
-                            message: "Please input right phone number!",
-                          }
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
-
-
-                      
+                      <OPTChecker name={'phone_number'} />
 
                       <Form.Item
                         name="address"
@@ -204,20 +216,20 @@ export default function Register() {
                       </Form.Item>
 
                       <Form.Item
-                      name="avatar"
-                      label="Avatar"
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                    >
-                      <input type="file" onChange={async (e)=>{
-                        const file = e.target.files[0];
-                        const url = await uploadVideo(file);
-                        setFile(url)
-                      }}/>
-                    </Form.Item>
+                        name="avatar"
+                        label="Avatar"
+                        rules={[
+                          {
+                            required: true,
+                          },
+                        ]}
+                      >
+                        <input type="file" onChange={async (e) => {
+                          const file = e.target.files[0];
+                          const url = await uploadVideo(file);
+                          setFile(url)
+                        }} />
+                      </Form.Item>
 
                     </>
                   )}
@@ -247,33 +259,22 @@ export default function Register() {
                       >
                         <Input />
                       </Form.Item>
-
+                      <OPTChecker name={'phoneNumber'} />
                       <Form.Item
-                        name="phoneNumber"
-                        label="Phone Number"
+                        name="coverPhoto"
+                        label="Avatar"
                         rules={[
                           {
                             required: true,
                           },
                         ]}
                       >
-                        <Input />
+                        <input type="file" onChange={async (e) => {
+                          const file = e.target.files[0];
+                          const url = await uploadVideo(file);
+                          setFile(url)
+                        }} />
                       </Form.Item>
-                      <Form.Item
-                      name="coverPhoto"
-                      label="Avatar"
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                    >
-                      <input type="file" onChange={async (e)=>{
-                        const file = e.target.files[0];
-                        const url = await uploadVideo(file);
-                        setFile(url)
-                      }}/>
-                    </Form.Item>
                     </>
                   )}
 

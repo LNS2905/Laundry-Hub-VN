@@ -1,6 +1,11 @@
-import React from "react";
+
 import { createPopper } from "@popperjs/core";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
+import React, { useState, useEffect } from "react";
+import api from "config/axios";
+
+
+
 
 const UserDropdown = () => {
   // dropdown props
@@ -8,12 +13,31 @@ const UserDropdown = () => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
+
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("information-customer");
+        setCustomers(response.data.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
     });
     setDropdownPopoverShow(true);
   };
+  console.log(customers);
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
@@ -30,11 +54,19 @@ const UserDropdown = () => {
       >
         <div className="items-center flex">
           <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-            <img
-              alt="cus"
-              className="w-full rounded-full align-middle border-none shadow-lg"
-              src={'https://scontent.fsgn5-3.fna.fbcdn.net/v/t1.15752-9/395586256_2307430336313376_6201350605673112004_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=ofxIltdFby8AX9fJRS7&_nc_ht=scontent.fsgn5-3.fna&oh=03_AdTcHfsAwRAkeS7lkmwBaxO2ezjuZ4NtKoznNoAiL8tZ5A&oe=6566E69E'}
-            />
+            {customers.avatar ? (
+              <img
+                src={customers.avatar}
+                className="h-12 w-12 bg-white rounded-full border"
+                alt="Avatar"
+              ></img>
+            ) : (
+              <img
+                src='https://cdn1.iconfinder.com/data/icons/customer-and-service-3/512/7-512.png'
+                className="h-12 w-12 bg-white rounded-full border"
+                alt="Default Avatar"
+              ></img>
+            )}
           </span>
         </div>
       </a>

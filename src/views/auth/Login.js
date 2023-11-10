@@ -1,10 +1,13 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "config/axios";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { toast } from "react-toastify";
+import { GGProvider } from "config/firebase";
+import { auth } from "config/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function Login() {
   const navigate = useHistory();
@@ -17,12 +20,14 @@ export default function Login() {
       const role = res.data.data.role;
       localStorage.setItem("role", role);
       localStorage.setItem("account", JSON.stringify(res.data.data));
+      localStorage.setItem("username", res.data.data.username);
+      localStorage.setItem("password", values.password);
       console.log(res.data.data.token);
       localStorage.setItem("token", res.data.data.token);
       if (role === "CUSTOMER") {
-        navigate.push("/productpage");
+        navigate.push("/customers/orders");
       } else if (role === "STORE") {
-        navigate.push("/stores/orderrequested");
+        navigate.push("/store/orderrequested");
       } else if (role === "ADMIN") {
         navigate.push("/admin/dashboard");
       }
@@ -35,6 +40,11 @@ export default function Login() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    localStorage.getItem("username");
+    localStorage.getItem("password");
+  }, []);
 
   return (
     <>
@@ -49,19 +59,52 @@ export default function Login() {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <a href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg">
-                    <button
-                      className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      <img
-                        alt="..."
-                        className="w-5 mr-1"
-                        src={require("assets/img/google.svg").default}
-                      />
-                      Google
-                    </button>
-                  </a>
+                  <button
+                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => {
+                      signInWithPopup(auth, GGProvider)
+                        .then(async (result) => {
+                          // This gives you a Google Access Token. You can use it to access the Google API.
+                          const credential = GoogleAuthProvider.credentialFromResult(result);
+                          const token = credential.accessToken;
+                          // The signed-in user info.
+                          const user = result.user;
+                          const res = await api.post(`/login/by-email?email=${user.email}`)
+                          const role = res.data.data.role;
+                          localStorage.setItem("role", role);
+                          localStorage.setItem("account", JSON.stringify(res.data.data));
+                          console.log(res.data.data.token);
+                          localStorage.setItem("token", res.data.data.token);
+                          if (role === "CUSTOMER") {
+                            navigate.push("/customers/orders");
+                          } else if (role === "STORE") {
+                            navigate.push("/store/orderrequested");
+                          } else if (role === "ADMIN") {
+                            navigate.push("/admin/dashboard");
+                          }
+                          // IdP data available using getAdditionalUserInfo(result)
+                          // ...
+                        }).catch((error) => {
+                          console.log(error);
+                          // Handle Errors here.
+                          // const errorCode = error.code;
+                          // const errorMessage = error.message;
+                          // // The email of the user's account used.
+                          // const email = error.customData.email;
+                          // // The AuthCredential type that was used.
+                          // const credential = GGProvider.credentialFromError(error);
+                          // ...
+                        });
+                    }}
+                  >
+                    <img
+                      alt="..."
+                      className="w-5 mr-1"
+                      src={require("assets/img/google.svg").default}
+                    />
+                    Google
+                  </button>
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
@@ -90,6 +133,7 @@ export default function Login() {
                   <Form.Item
                     label="Username"
                     name="username"
+                    initialValue={`${localStorage.getItem("username")}`}
                     rules={[
                       {
                         required: true,
@@ -103,6 +147,7 @@ export default function Login() {
                   <Form.Item
                     label="Password"
                     name="password"
+                    initialValue={`${localStorage.getItem("password")}`}
                     rules={[
                       {
                         required: true,
@@ -133,6 +178,7 @@ export default function Login() {
                     <Button type="primary" htmlType="submit">
                       Submit
                     </Button>
+
                   </Form.Item>
                 </Form>
               </div>
