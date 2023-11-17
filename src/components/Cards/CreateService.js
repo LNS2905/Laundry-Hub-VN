@@ -12,43 +12,49 @@ export default function CardSettings({ submit, setSubmit, handleCancel, render, 
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
-        const data = title === 'WASH' ? {
-            name: values.name,
-            description: values.description,
-            title: values.title,
-            figure: 'https://media.cnn.com/api/v1/images/stellar/prod/210915133905-how-to-do-laundry-lead.jpg?q=w_1601,h_901,x_0,y_0,c_fill',
-            options: [
-                {
-                    name: 'Dưới 5 kg',
-                    price: values.option1
-                },
-                {
-                    name: '5 - 7 kg',
-                    price: values.option2
-                },
-                {
-                    name: 'Trên 7 kg',
-                    price: values.option3
-                }
-            ]
-        } : {
-            ...values,
-            figure: 'https://media.cnn.com/api/v1/images/stellar/prod/210915133905-how-to-do-laundry-lead.jpg?q=w_1601,h_901,x_0,y_0,c_fill',
-            options: values.options.map(option => {
-                return {
-                    ...option,
-                    defaultValue: option.defaultValue?.length > 0
-                }
-            })
-        }
+        try {
+            const data = title === 'WASH' ? {
+                name: values.name,
+                description: values.description,
+                title: values.title,
+                figure: 'https://media.cnn.com/api/v1/images/stellar/prod/210915133905-how-to-do-laundry-lead.jpg?q=w_1601,h_901,x_0,y_0,c_fill',
+                options: [
+                    {
+                        name: 'Dưới 5 kg',
+                        price: values.option1
+                    },
+                    {
+                        name: '5 - 7 kg',
+                        price: values.option2
+                    },
+                    {
+                        name: 'Trên 7 kg',
+                        price: values.option3
+                    }
+                ]
+            } : {
+                ...values,
+                figure: 'https://media.cnn.com/api/v1/images/stellar/prod/210915133905-how-to-do-laundry-lead.jpg?q=w_1601,h_901,x_0,y_0,c_fill',
+                options: values.options.map(option => {
+                    return {
+                        ...option,
+                        defaultValue: option.defaultValue?.length > 0
+                    }
+                })
+            }
 
-        const response = await api.post('/api/v1/service', data);
-        form.resetFields();
-        setSubmit(false);
-        handleCancel();
-        toast.success(response.data.message);
-        setRender(render + 1);
-    }
+            const response = await api.post('/api/v1/service', data);
+            form.resetFields();
+            setSubmit(false);
+            handleCancel();
+            toast.success(response.data.message);
+            setRender(render + 1);
+        }
+        catch (error) {
+            console.error(error);
+            toast.error(error.response.data);
+        }
+    };
 
     useEffect(() => {
         console.log(submit);
