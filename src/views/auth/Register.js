@@ -11,6 +11,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import uploadVideo from "utils/uploadImage";
 
+
+
+
+
 const { Option } = Select;
 
 export default function Register() {
@@ -18,7 +22,13 @@ export default function Register() {
   const [role, setRole] = useState("CUSTOMER");
   const [file, setFile] = useState('https://free-icon-rainbow.com/i/icon_01993/icon_019930_256.jpg');
   const navigate = useHistory();
+
+
+
   const onFinish = async (values) => {
+    const fileChecked = values.file;
+    // Check if the file is an image
+
     const data = {
       username: values.username,
       password: values.password,
@@ -46,6 +56,7 @@ export default function Register() {
 
       toast.error(e.response.data);
     }
+
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

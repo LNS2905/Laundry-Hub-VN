@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
 import { useForm } from "antd/es/form/Form.js";
 import uploadVideo from "utils/uploadImage";
+import formatDate from "utils/daytimeutils";
 
 
 const App = ({ color = "light" }) => {
@@ -148,7 +149,7 @@ const App = ({ color = "light" }) => {
                 {
                     key: "3",
                     label: "Order time",
-                    children: response.data.data.dayCreateOrder,
+                    children: formatDate(response.data.data.dayCreateOrder, 'dd/MM/yyyy'),
                 },
                 {
                     key: "4",
@@ -259,7 +260,7 @@ const App = ({ color = "light" }) => {
                         } label="Number of Height Store" name="numberOfHeight" >
                             <Input />
                         </Form.Item>
-                        <Form.Item
+                        {/*<Form.Item
                             name="avatar"
                             label="Avatar"
                             rules={[
@@ -268,13 +269,13 @@ const App = ({ color = "light" }) => {
                                 },
                             ]}
                         >
-                            <input type="file" onChange={async (e) => {
+                           <input type="file" onChange={async (e) => {
                                 const file = e.target.files[0];
                                 const url = await uploadVideo(file);
                                 setFile(url)
                                 console.log(url);
                             }} />
-                        </Form.Item>
+                        </Form.Item>*/}
                     </Form>
                 </Modal>
             </Row>

@@ -18,24 +18,7 @@ const NotificationDropdown = ({ id }) => {
   };
   return (
     <>
-      <a
-        className="text-blueGray-500 py-1 px-3"
-
-        ref={btnDropdownRef}
-        onClick={(e) => {
-          e.preventDefault();
-          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
-        }}
-      >
-        <i className="fas fa-ellipsis-v"></i>
-      </a>
-      <div
-        ref={popoverDropdownRef}
-        className={
-          (dropdownPopoverShow ? "block " : "hidden ") +
-          "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-        }
-      >
+      <button className="text-blueGray-500 py-1 px-3 lg-border-20 bg-blue-500 text-white">
 
         <Link
           to={`/customers/cusorderdetail/${id}`}
@@ -43,10 +26,10 @@ const NotificationDropdown = ({ id }) => {
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
-          Order Detail
+          Detail
         </Link>
 
-      </div>
+      </button>
     </>
   );
 };

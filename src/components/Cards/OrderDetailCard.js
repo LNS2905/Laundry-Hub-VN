@@ -36,6 +36,7 @@ const App = ({ color = "light" }) => {
     toast.success("Rate successfully!");
     fetchData();
     setIsModalOpen(false);
+
   }
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -148,53 +149,68 @@ const App = ({ color = "light" }) => {
           key: "1",
           label: "Service Name",
           children: response.data.data.orderDetail[0].service.name,
+          span: 1.5
         },
         {
           key: "2",
           label: "Order Status",
           children: response.data.data.orderStatus,
+          span: 1.5
         },
         {
           key: "3",
           label: "Order time",
           children: formatDate(response.data.data.dayCreateOrder, 'dd/MM/yyyy'),
+          span: 1.5
         },
         {
           key: "4",
+          label: "Date of order successfully",
+          children: formatDate(response.data.data.dateOrderDone, 'dd/MM/yyyy'),
+          span: 1.5
+        }
+        ,
+        {
+          key: "5",
           label: "Status",
           children: <Step />,
           span: 3,
         },
         {
-          key: "5",
+          key: "6",
           label: "Default Services",
           children: formatVND(response.data.data.orderDetail[0].price * response.data.data.numberOfHeightSto)
         },
         {
-          key: "6",
+          key: "7",
           label: "Optional Services",
           children: formatVND(response.data.data.totalPrice - response.data.data.orderDetail[0].price)
         },
         {
-          key: "7",
-          label: "Official Receipts",
-          children: formatVND(response.data.data.totalPrice)
-        },
-        {
           key: "8",
-          label: "Description",
-          children: response.data.data.orderDetail[0].service.description
+          label: "Official Receipts",
+          children: formatVND(response.data.data.totalPrice),
         },
         {
           key: "9",
-          label: "Feedback",
-          children: response.data.data.feedbackFromStore
+          label: "Description",
+          children: response.data.data.orderDetail[0].service.description,
+          span: 1.5
         },
         {
           key: "10",
           label: "Rating",
-          children: response.data.data.rate
-        }
+          children: response.data.data.rate,
+          span: 3
+
+        },
+
+        {
+          key: "11",
+          label: "Feedback",
+          children: response.data.data.feedbackFromStore,
+          span: 1
+        },
       ])
     } catch (error) {
       console.error(error);

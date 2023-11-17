@@ -152,9 +152,22 @@ export default function Index() {
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
                   Our partner offers a reliable and efficient laundry service that saves time and hassle. With state-of-the-art equipment and experienced staff, your clothes will be cleaned to perfection and returned to you promptly. Say goodbye to laundry and hello to more free time with our partner's laundry service.
                 </p>
-                <button className="text-black font-bold py-2 px-4 rounded-full mt-8 border-2 border-black">
+                <Link
+                  to="/productpage"
+                  className="text-black font-bold py-2 px-4 rounded-full mt-8 border-2 border-black border-solid"
+                  style={{
+                    color: 'black',
+                    fontWeight: 'bold',
+                    padding: '2px 4px',
+                    borderRadius: '9999px',
+                    marginTop: '2rem',
+                    borderWidth: '2px',
+                    borderColor: 'black',
+                    borderStyle: 'solid'
+                  }}
+                >
                   Order Now!
-                </button>
+                </Link>
               </div>
 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
@@ -259,67 +272,7 @@ export default function Index() {
           </div>
         </section>
 
-        <section className="pt-20 pb-48">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center text-center mb-24">
-              <div className="w-full lg:w-6/12 px-4">
-                <h2 className="text-4xl font-semibold">Here are our partner</h2>
-                <p className="text-lg leading-relaxed m-4 text-blueGray-500">
-                  This may be a text but now i dont know what to write anymore
-                </p>
-              </div>
-            </div>
 
-            <Carousel >
-              <div>
-                <Row className="rounded-lg" gutter={12}>
-                  {store.slice(0, 4).map((store) => (
-                    <Col span={6} style={{ minHeight: '500px' }}>
-
-                      <Card
-                        hoverable
-
-                        cover={
-                          <img
-                            onError={(e) => {
-                              e.target.src =
-                                "https://images.unsplash.com/photo-1665912014038-8c78434db1ff?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-                            }}
-                            alt="example"
-                            src={
-                              store.coverPhoto
-                                ? store.coverPhoto
-                                : "https://images.unsplash.com/photo-1665912014038-8c78434db1ff?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            }
-                          />
-                        }
-                      >
-                        <Meta title={store.name} description={store.address} />
-                        <Meta description={store.description + " - " + store.phoneNumber} />
-                        <Rate
-                          style={{ marginTop: 20 }}
-                          disabled
-                          defaultValue={store.rate}
-                          character={({ index }) => customIcons[index + 1]}
-                        />
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-
-              </div>
-              <div>
-                <h3 style={contentStyle}>2</h3>
-              </div>
-              <div>
-                <h3 style={contentStyle}>3</h3>
-              </div>
-              <div>
-                <h3 style={contentStyle}>4</h3>
-              </div>
-            </Carousel>
-          </div>
-        </section >
 
       </main >
       <Footer />

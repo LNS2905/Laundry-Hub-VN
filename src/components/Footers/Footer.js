@@ -67,7 +67,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         About Us
                       </a>
@@ -75,7 +75,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         Blog
                       </a>
@@ -83,7 +83,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         Github
                       </a>
@@ -91,7 +91,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         Free Products
                       </a>
@@ -106,7 +106,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         MIT License
                       </a>
@@ -114,7 +114,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         Terms & Conditions
                       </a>
@@ -122,7 +122,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         Privacy Policy
                       </a>
@@ -130,7 +130,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                       >
                         Contact Us
                       </a>
@@ -144,8 +144,11 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Laundry Hub VN 
-                
+                Copyright © {new Date().getFullYear()} Laundry Hub VN
+                <div className="text-sm text-blueGray-500 font-semibold py-1">
+                  Hotline: 0333336938
+                </div>
+
               </div>
             </div>
           </div>

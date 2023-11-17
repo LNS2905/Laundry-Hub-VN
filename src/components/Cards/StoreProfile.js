@@ -67,7 +67,7 @@ export default function StoreProfile() {
                   <div className="mb-2 text-lime-400 mt-10">
                     <div className="flex flex-row justify-center">Status: <div style={{ color: 'green' }}> {stores.status}</div>
 
-                      <i className={`fas fa-circle text-${stores.status === 'ACTIVE' ? 'green' : 'red'}-500 mr-2`}></i>
+
                       <span
                         className={
                           "ml-3 font-bold text-black"
@@ -77,7 +77,7 @@ export default function StoreProfile() {
                           console.log(value);
                           if (!value) {
                             try {
-                              const response = await api.put(`/${stores.id}/deactive-store`);
+                              const response = await api.put(`api/v1/store/deactivate-store`);
                               console.log(response);
                               fetchData();
                             } catch (error) {
@@ -86,7 +86,7 @@ export default function StoreProfile() {
                           }
                           else {
                             try {
-                              const response = await api.put(`/${stores.id}/active-store`);
+                              const response = await api.put(`api/v1/store/active-store`);
                               console.log(response);
                               fetchData();
                             } catch (error) {
@@ -98,14 +98,44 @@ export default function StoreProfile() {
                       </span>
                     </div>
                   </div>
-                ) : (
-                  <div className="mb-2 text-blueGray-600 mt-10">
-                    Status: {stores.status}
+                ) : (<div className="mb-2 text-lime-400 mt-10">
+                  <div className="flex flex-row justify-center">Status: <div style={{ color: 'red' }}> {stores.status}</div>
+
+
+                    <span
+                      className={
+                        "ml-3 font-bold text-black"
+                      }
+                    >
+                      <Switch defaultChecked={stores.status === 'ACTIVE'} onChange={async (value) => {
+                        console.log(value);
+                        if (!value) {
+                          try {
+                            const response = await api.put(`api/v1/store/deactivate-store`);
+                            console.log(response);
+                            fetchData();
+                          } catch (error) {
+                            console.error(error);
+                          }
+                        }
+                        else {
+                          try {
+                            const response = await api.put(`api/v1/store/active-store`);
+                            console.log(response);
+                            fetchData();
+                          } catch (error) {
+                            console.error(error);
+                          }
+
+                        }
+                      }} />
+                    </span>
                   </div>
+                </div>
                 )}
               </div>
               <div className="mb-2 text-blueGray-600">
-                Rate: {stores.rate} <i className="fas fa-star text-yellow-500"></i>
+                Rate : {stores.rate} <i className="fas fa-star text-yellow-500"></i>
               </div>
             </div>
 

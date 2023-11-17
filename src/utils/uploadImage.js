@@ -9,7 +9,6 @@ const uploadVideo = async (file) => {
   const storageRef = ref(storage, "some-child");
   const response = await uploadBytes(storageRef, file);
   const downloadURL = await getDownloadURL(response.ref);
-
   return downloadURL;
 };
 

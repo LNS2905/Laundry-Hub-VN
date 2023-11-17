@@ -36,21 +36,14 @@ export default function FooterSmall(props) {
                 </li>
                 <li>
                   <a
-                    href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
+
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
-                    About Us
+                    Hotline: 0333336938
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="https://www.techrepublic.com/wp-content/uploads/2017/03/cce53b95907bc6a657c0b5f6de78d757.jpg"
-                    className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
-                  >
-                    Blog
-                  </a>
-                </li>
-                
+
+
               </ul>
             </div>
           </div>

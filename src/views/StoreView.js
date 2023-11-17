@@ -36,27 +36,34 @@ export default function Index() {
   const [total, setTotal] = useState(0);
 
   const onFinish = async (values) => {
-    console.log(values);
-    const option = [];
+    try {
+      console.log(values);
+      const option = [];
 
-    option.push(services.filter((item) => item.id === values.washType)[0].options[0].id);
-    for (const key in values) {
-      if (key.startsWith("option-")) {
-        option.push(values[key]);
+      option.push(services.filter((item) => item.id === values.washType)[0].options[0].id);
+      for (const key in values) {
+        if (key.startsWith("option-")) {
+          option.push(values[key]);
+        }
       }
-    }
-    const data = {
-      address: values.address,
-      numberOfCustomer: values.numberOfCustomer,
-      numberOfHeightCus: Number(values.numberOfHeightCus),
-      optionIds: option,
-    };
+      const data = {
+        address: values.address,
+        numberOfCustomer: values.numberOfCustomer,
+        numberOfHeightCus: Number(values.numberOfHeightCus),
+        optionIds: option,
+      };
 
-    const response = await api.post(`/api/v1/order`, data);
-    form.resetFields();
-    setCurrentStoreId(null);
-    toast.success(response.data.message);
+      const response = await api.post(`/api/v1/order`, data);
+      form.resetFields();
+      setCurrentStoreId(null);
+      toast.success(response.data.message);
+
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data);
+    }
   };
+
 
   const customIcons = {
     1: <FrownOutlined />,
@@ -79,6 +86,7 @@ export default function Index() {
   const handleOk = () => {
     // setShow(false);
     form.submit();
+
   };
 
   const handleCancel = () => {
@@ -137,11 +145,6 @@ export default function Index() {
     console.log(defaultService);
     form.setFieldsValue({
       ...form.getFieldsValue(),
-      options: [
-        { id: 1, name: "Option 1", price: 100, defaultValue: true },
-        { id: 2, name: "Option 2", price: 200 },
-        // thêm các giá trị khác tại đây
-      ],
       washType: defaultService,
     });
     calcTotalPrice(services.data.data);
@@ -272,10 +275,9 @@ export default function Index() {
           style={{ width: "50%", margin: "20px auto", display: "block" }}
         />
         <Row gutter={[12, 12]} style={{ padding: 30 }}>
-          {store
-            .filter((item) =>
-              item.name.toLowerCase().includes(key.toLowerCase()) && item.status === "ACTIVE"
-            )
+          {store.filter((item) =>
+            item.name.toLowerCase().includes(key.toLowerCase()) && item.status === "ACTIVE"
+          )
             .map(mapToHtml)}
         </Row>
       </main>
@@ -290,6 +292,7 @@ export default function Index() {
         <Form
           form={form}
           onFinish={onFinish}
+
           onChange={(e) => {
             calcTotalPrice();
           }}

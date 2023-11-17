@@ -26,8 +26,8 @@ export default function StoresCardTable({ color }) {
     try {
       let response;
       if (activeStore.status === 'ACTIVE') {
-        response = await api.put(`/${activeStore.id}/deactive-store`);
-        toast.success('Deactive store successfully !');
+        response = await api.put(`/${activeStore.id}/blocked-store`);
+        toast.success('Block store successfully !');
       } else {
         response = await api.put(`/${activeStore.id}/active-store`);
         toast.success('Active store successfully !');
@@ -36,7 +36,7 @@ export default function StoresCardTable({ color }) {
       fetchData();
     } catch (error) {
       if (activeStore.status === 'ACTIVE') {
-        toast.error('Deactive store failed !');
+        toast.error('Blocke store failed !');
         console.error(error);
       } else {
         toast.error('Store does not meet the requirement to active !');

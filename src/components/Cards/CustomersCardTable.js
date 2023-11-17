@@ -3,11 +3,55 @@ import PropTypes from "prop-types";
 
 
 // components
-import TableDropdown from "components/Dropdowns/AdminTableDropdown.js";
+
 import api from "config/axios";
 
+import { toast } from "react-toastify";
+import { Modal } from "antd";
+import { Switch } from 'antd';
 export default function CustomersCardTable({ color }) {
   const [customers, setCustomers] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [activeCus, setActiveCus] = useState('');
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get("api/v1/customer/admin-function/all-customer");
+      setCustomers(response.data.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleOk = async () => {
+    try {
+      let response;
+      if (activeCus.status === 'ACTIVE') {
+        response = await api.put(`/${activeCus.id}/deactive-customer`);
+        toast.success('Block customer successfully !');
+      } else {
+        response = await api.put(`/${activeCus.id}/active-customer`);
+        toast.success('Active customer successfully !');
+      }
+      console.log(response);
+      fetchData();
+    } catch (error) {
+      if (activeCus.status === 'ACTIVE') {
+        toast.error('Block customer failed !');
+        console.error(error);
+      } else {
+        toast.error('Active failed !');
+        console.error(error);
+      }
+    } setVisible(false);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +122,7 @@ export default function CustomersCardTable({ color }) {
                   "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap bg-lightBlue-600 font-semibold text-left text-white"
                 }
                 ></th>
+
               </tr>
             </thead>
             <tbody>
@@ -131,8 +176,42 @@ export default function CustomersCardTable({ color }) {
                     {customer.address}
                   </span></td>
 
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xl whitespace-nowrap p-4 text-right">
-                    <TableDropdown />
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className={`fas fa-circle text-${customer.status === 'ACTIVE' ? 'green' : 'red'}-500 mr-2`}></i>
+                    <span
+                      className={
+                        "ml-3 font-bold text-black"
+                      }
+                    >
+                      <Switch checked={customer.status === 'ACTIVE'} onChange={async (value) => {
+
+                        console.log(value);
+                        if (!value) {
+
+                          try {
+                            setActiveCus(customer);
+                            setVisible(true);
+                            fetchData();
+                            console.log(activeCus);
+                          } catch (error) {
+                            console.error(error);
+                            toast.error('Block customer failed !');
+                          }
+                        }
+                        else {
+                          try {
+                            setActiveCus(customer);
+                            setVisible(true);
+                            fetchData();
+                            console.log(activeCus);
+                          } catch (error) {
+                            console.error(error);
+                            toast.error('Active failed !');
+                          }
+                        }
+                      }} />
+                    </span>
+
                   </td>
                 </tr>
               ))}
@@ -140,6 +219,28 @@ export default function CustomersCardTable({ color }) {
           </table>
         </div >
       </div >
+      {console.log('state:' + activeCus.status)}
+      {(() => {
+        console.log(activeCus.status);
+        if (activeCus.status === 'ACTIVE') {
+          return <Modal
+            title={`Are you sure to deactive this customer ?`}
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          />
+
+        } else {
+          return <Modal
+            title={`Are you sure to block this customer ?`}
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          ></Modal>
+
+        }
+      })()
+      }
     </>
   );
 }
