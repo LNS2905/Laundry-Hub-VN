@@ -250,7 +250,7 @@ const App = ({ color = "light" }) => {
 
                 <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <Form form={form} onFinish={onFinish}>
-                        <Form.Item rule={
+                        <Form.Item rules={
                             [
                                 {
                                     required: true,
