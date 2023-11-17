@@ -9,6 +9,7 @@ import { GGProvider } from "config/firebase";
 import { auth } from "config/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
+
 export default function Login() {
   const navigate = useHistory();
 
@@ -95,6 +96,7 @@ export default function Login() {
                           // // The AuthCredential type that was used.
                           // const credential = GGProvider.credentialFromError(error);
                           // ...
+                          toast.error(error.response.data);
                         });
                     }}
                   >
