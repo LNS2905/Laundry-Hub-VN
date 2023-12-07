@@ -11,6 +11,8 @@ export default function CardSettings({ submit, setSubmit, handleCancel, render, 
     const [title, setTitle] = React.useState('WASH');
     const [form] = Form.useForm();
 
+
+
     const onFinish = async (values) => {
         try {
             const data = title === 'WASH' ? {

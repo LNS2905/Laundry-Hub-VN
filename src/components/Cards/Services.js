@@ -164,7 +164,10 @@ export default function ServicesPage({ color }) {
                                 const response = await api.put(`api/v1/option/deactivate-option/${option.id}`);
                                 console.log(response);
                                 fetchData();
+
                                 toast.success("Deactive options successfully!");
+
+                                window.location.reload();
                               } catch (error) {
                                 console.error(error);
                               }
@@ -175,6 +178,7 @@ export default function ServicesPage({ color }) {
                                 console.log(response);
                                 fetchData();
                                 toast.success("Active options successfully!");
+                                window.location.reload();
                               } catch (error) {
                                 console.error(error);
                               }
@@ -196,6 +200,8 @@ export default function ServicesPage({ color }) {
                           toast.success("Deactive successfully!");
                         } catch (error) {
                           console.error(error);
+                          fetchData();
+                          toast.error("Deactive fail!");
                         }
                       }
                       else {
@@ -206,6 +212,8 @@ export default function ServicesPage({ color }) {
                           toast.success("Active successfully!");
                         } catch (error) {
                           console.error(error);
+                          fetchData();
+                          toast.error("Active fail!");
                         }
 
                       }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createPopper } from "@popperjs/core";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
+import api from "config/axios";
 
 const UserDropdown = () => {
   // dropdown props
@@ -8,6 +9,22 @@ const UserDropdown = () => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
+  const [stores, setStores] = React.useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("api/v1/store/information-store");
+        setStores(response.data.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
@@ -30,11 +47,19 @@ const UserDropdown = () => {
       >
         <div className="items-center flex">
           <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
-            <img
-              alt="store"
-              className="w-full rounded-full align-middle border-none shadow-lg"
-              src={'https://images.unsplash.com/profile-fb-1687415375-5592bc38a9e7.jpg?auto=format&fit=crop&q=60&bg=fff&crop=faces&dpr=1&h=32&w=32'}
-            />
+            {stores.avatar ? (
+              <img
+                src={stores.avatar}
+                className="h-12 w-12 bg-white rounded-full border"
+                alt="Avatar"
+              ></img>
+            ) : (
+              <img
+                src='https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                className="h-12 w-12 bg-white rounded-full border"
+                alt="Default Avatar"
+              ></img>
+            )}
           </span>
         </div>
       </a>
