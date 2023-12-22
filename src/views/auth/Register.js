@@ -193,57 +193,63 @@ export default function Register() {
                     <Input type="password" />
                   </Form.Item>
 
-                  {role === "CUSTOMER" && (
-                    <>
-                      <Form.Item
-                        name="name"
-                        label="Customer name"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Please input your name!",
-                          },
-                          {
-                            min: 8,
-                            message: "Please input between 8 to 50 characters!",
-                          }
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
+                  {
+                    role === "CUSTOMER" && (
+                      <>
+                        <Form.Item
+                          name="name"
+                          label="Customer name"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please input your name!",
+                            },
+                            {
+                              min: 8,
+                              message: "Please input between 8 to 50 characters!",
+                            }
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
 
-                      <OPTChecker name={'phone_number'} />
+                        <OPTChecker name={'phone_number'} />
 
-                      <Form.Item
-                        name="address"
-                        label="Address"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                      >
-                        <Input />
-                      </Form.Item>
+                        <Form.Item
+                          name="address"
+                          label="Address"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
 
-                      <Form.Item
-                        name="avatar"
-                        label="Avatar"
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                      >
-                        <input type="file" onChange={async (e) => {
-                          const file = e.target.files[0];
-                          const url = await uploadVideo(file);
-                          setFile(url)
-                        }} />
-                      </Form.Item>
+                        <Form.Item
+                          name="avatar"
+                          label="Avatar"
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                        >
+                          <input type="file" onChange={async (event) => {
+                            try {
+                              const file = event.target.files[0];
+                              const url = await uploadVideo(file);
+                              setFile(url);
+                            } catch (error) {
+                              toast.error(error.message);
+                            }
+                          }} />
+                        </Form.Item>
 
-                    </>
-                  )}
+
+                      </>
+                    )}
 
                   {role === "STORE" && (
                     <>
